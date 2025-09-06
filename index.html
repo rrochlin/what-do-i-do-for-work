@@ -12,12 +12,169 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			/* Simple helpers for placeholders and arrows */
+			.placeholder {
+				display: grid;
+				place-items: center;
+				width: 100%;
+				height: 60vh;
+				background: rgba(255,255,255,0.06);
+				border: 2px dashed rgba(255,255,255,0.25);
+				border-radius: 12px;
+				font-size: 28px;
+				color: #ddd;
+			}
+
+			.big-arrow {
+				font-size: 120px;
+				line-height: 1;
+				font-weight: 900;
+			}
+			.big-arrow.green { color: #3ecf8e; }
+			.big-arrow.red { color: #ff5555; }
+
+			.badge {
+				display: inline-block;
+				padding: 8px 14px;
+				border-radius: 999px;
+				background: rgba(255,255,255,0.1);
+				border: 1px solid rgba(255,255,255,0.2);
+				font-size: 22px;
+			}
+			.logos {
+				display: flex;
+				gap: 28px;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+			}
+			.logos .logo {
+				font-size: 60px;
+				padding: 16px 22px;
+				border-radius: 12px;
+				background: rgba(255,255,255,0.06);
+				border: 1px solid rgba(255,255,255,0.15);
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<!-- Title -->
+				<section>
+					<h1>What I Do</h1>
+					<p class="badge">App Developer / Analyst @ Utility</p>
+				</section>
+
+				<!-- Locations -->
+				<section>
+					<section>
+						<h2>Locations</h2>
+						<p>Home office, Bothell office, Bellevue office</p>
+					</section>
+					<section>
+						<h3>Home Office</h3>
+						<ul>
+							<li class="fragment">Full office</li>
+							<li class="fragment">Zoom in: Laptops</li>
+							<li class="fragment">Zoom in: Gaming PC</li>
+							<li class="fragment">Breville espresso setup</li>
+							<li class="fragment">Cat Meika</li>
+						</ul>
+						<div class="placeholder fragment">Image placeholders – add later</div>
+					</section>
+					<section>
+						<h3>Bothell Office</h3>
+						<ul>
+							<li class="fragment">Google Maps photo</li>
+							<li class="fragment">Low quality monitor</li>
+							<li class="fragment">Keurig (spiky outline), decaf</li>
+						</ul>
+						<div class="placeholder fragment">Image placeholders – add later</div>
+					</section>
+					<section>
+						<h3>Bellevue Office</h3>
+						<ul>
+							<li class="fragment">Big red down arrow</li>
+							<li class="fragment">Google Maps route (rush hour)</li>
+							<li class="fragment">405 south traffic</li>
+							<li class="fragment">Single-pod Keurig, decaf</li>
+						</ul>
+						<div class="big-arrow red fragment">⬇</div>
+					</section>
+				</section>
+
+				<!-- Coding -->
+				<section>
+					<section>
+						<h2>Coding</h2>
+					</section>
+					<section>
+						<div class="big-arrow green">⬆</div>
+						<div class="logos" style="margin-top: 24px;">
+							<div class="logo">🐍 Python</div>
+							<div class="logo">🟦 TypeScript</div>
+							<div class="logo">#️⃣ C#</div>
+						</div>
+					</section>
+				</section>
+
+				<!-- Excel -->
+				<section>
+					<section>
+						<h2>Excel</h2>
+					</section>
+					<section>
+						<div class="big-arrow red">⬇</div>
+						<p class="fragment">Apologies to Tyler (accountant)</p>
+						<div class="placeholder fragment">Python eats Excel → outputs Excel</div>
+					</section>
+				</section>
+
+				<!-- AI -->
+				<section>
+					<section>
+						<h2>AI</h2>
+					</section>
+					<section>
+						<div class="placeholder">Hackerman stock photo</div>
+						<p class="fragment">Buzzwords everywhere • Stock soaring • Code with errors</p>
+					</section>
+				</section>
+
+				<!-- ETLs -->
+				<section>
+					<section>
+						<h2>ETLs</h2>
+					</section>
+					<section>
+						<div class="big-arrow green">⬆</div>
+						<div class="placeholder" style="margin-top:16px;">Python eats Excel → outputs SQL table</div>
+					</section>
+				</section>
+
+				<!-- Sparkie -->
+				<section>
+					<section>
+						<h2>Sparkie</h2>
+					</section>
+					<section>
+						<div class="placeholder">ChatGPT crossed out • PSE logo • Smiling workers</div>
+					</section>
+				</section>
+
+				<!-- RFP Portal -->
+				<section>
+					<section>
+						<h2>RFP Portal</h2>
+					</section>
+					<section>
+						<div class="placeholder">TurboTax crossed out • PSE logo</div>
+						<p class="fragment">Buzzwords • Dollar signs • Upward trend</p>
+					</section>
+				</section>
 			</div>
 		</div>
 
@@ -31,6 +188,11 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+				controls: true,
+				progress: true,
+				slideNumber: 'c/t',
+				transition: 'fade',
+				backgroundTransition: 'fade',
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
