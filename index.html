@@ -93,6 +93,13 @@
 			.buzz span:nth-child(odd) { animation-duration: 7s; }
 			.buzz span:nth-child(3n) { animation-delay: .8s; }
 			@keyframes float { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-12px) rotate(2deg); } }
+
+			/* Smash/Slap animations for logos */
+			.smash-stage { position: relative; display: grid; place-items: center; }
+			.smash-x { position: absolute; font-size: 240px; line-height: 1; color: rgba(239,68,68,0.95); text-shadow: 0 12px 30px rgba(0,0,0,.45); transform: scale(.2) rotate(-20deg); opacity: 0; animation: smash-in .5s ease forwards; }
+			@keyframes smash-in { to { transform: scale(1) rotate(-12deg); opacity: 1; } }
+			.slap-logo { position: absolute; width: 220px; transform: translate(220px, -80px) rotate(-18deg) scale(.6); opacity: 0; filter: drop-shadow(0 18px 30px rgba(0,0,0,.4)); animation: slap-in .5s .25s ease forwards; }
+			@keyframes slap-in { to { transform: translate(140px, -40px) rotate(-10deg) scale(1); opacity: 1; } }
 		</style>
 	</head>
 	<body>
@@ -187,7 +194,7 @@
 					<section>
 						<img src="assets/arrow-down-red.svg" alt="Down arrow" style="width: 260px;"/>
 						<p class="fragment">Apologies to Tyler (accountant)</p>
-						<img class="fragment" src="assets/placeholder.svg" alt="Excel visual" style="width: 80%; border-radius: 12px;"/>
+						<img class="fragment" src="assets/python-eats-excel-poops-excel--t3chat--1.png" alt="Python eats Excel and poops Excel" style="width: 80%; border-radius: 12px;"/>
 					</section>
 				</section>
 
@@ -196,10 +203,13 @@
 					<section>
 						<h2>AI</h2>
 					</section>
-					<section>
-						<!-- Hackerman visual intentionally omitted; using chart + code visuals -->
-						<img class="fragment" src="assets/chart-up.svg" alt="Stock chart up" style="width: 65%; border-radius: 12px;"/>
-						<img class="fragment" src="assets/code-error.svg" alt="Code with errors" style="width: 65%; border-radius: 12px;"/>
+					<section data-auto-animate>
+						<img data-id="ai-hero" src="assets/hackerman.gif" alt="Hackerman" style="width: 70%; border-radius: 12px;"/>
+					</section>
+					<section data-auto-animate>
+						<img data-id="ai-hero" src="assets/hackerman.gif" alt="Hackerman" style="width: 28%; border-radius: 12px;"/>
+						<img class="fragment" src="assets/chart-up.svg" alt="Stock chart up" style="width: 48%; border-radius: 12px;"/>
+						<img class="fragment" src="assets/code-error.svg" alt="Code with errors" style="width: 48%; border-radius: 12px;"/>
 						<div class="buzz">
 							<span class="fragment">LLM</span>
 							<span class="fragment">Agent</span>
@@ -222,7 +232,7 @@
 					</section>
 					<section>
 						<img src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 260px;"/>
-						<img class="fragment" src="assets/etl.svg" alt="ETL graphic" style="width: 90%; border-radius: 12px; margin-top: 12px;"/>
+						<img class="fragment" src="assets/python-transforms-excel-to-sql--t3chat--1.png" alt="Python transforms Excel to SQL" style="width: 90%; border-radius: 12px; margin-top: 12px;"/>
 					</section>
 				</section>
 
@@ -231,8 +241,17 @@
 					<section>
 						<h2>Sparkie</h2>
 					</section>
-					<section>
-						<!-- Content will be visuals/logos later -->
+					<section data-auto-animate>
+						<div class="smash-stage" style="height: 65vh;">
+							<img data-id="spark-logo" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<div class="smash-stage" style="height: 65vh;">
+							<img data-id="spark-logo" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
+							<div class="smash-x">✕</div>
+							<img class="slap-logo" src="assets/PSE_logo.png" alt="PSE logo"/>
+						</div>
 					</section>
 				</section>
 
@@ -241,9 +260,17 @@
 					<section>
 						<h2>RFP Portal</h2>
 					</section>
-					<section>
-						<!-- Content will be visuals/logos later -->
-						<p class="fragment">Buzzwords • Dollar signs • Upward trend</p>
+					<section data-auto-animate>
+						<div class="smash-stage" style="height: 65vh;">
+							<img data-id="rfp-logo" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px; background:#fff; padding:8px;"/>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<div class="smash-stage" style="height: 65vh;">
+							<img data-id="rfp-logo" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px; background:#fff; padding:8px;"/>
+							<div class="smash-x">✕</div>
+							<img class="slap-logo" src="assets/PSE_logo.png" alt="PSE logo"/>
+						</div>
 					</section>
 				</section>
 			</div>
