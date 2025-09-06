@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827"/><stop offset="100%" stop-color="#0b1020"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" rx="28" fill="url(#bg)"/>
+  <g font-family="ui-monospace, Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="30" fill="#e5e7eb">
+    <text x="80" y="120">def foo(x):</text>
+    <text x="80" y="160">    return x + 1</text>
+    <text x="80" y="220">function bar(y) {</text>
+    <text x="80" y="260">  return y + ;</text>
+    <text x="80" y="300">}</text>
+  </g>
+  <g fill="#ef4444" font-family="Inter, ui-sans-serif, system-ui" font-weight="700">
+    <rect x="720" y="360" width="400" height="80" rx="16" fill="#7f1d1d" stroke="#ef4444"/>
+    <text x="920" y="415" font-size="42" text-anchor="middle">SyntaxError</text>
+  </g>
+</svg>
+

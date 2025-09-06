@@ -43,6 +43,22 @@
 				border: 1px solid rgba(255,255,255,0.2);
 				font-size: 22px;
 			}
+
+			/* Subtle animated gradient backdrop */
+			.reveal:before {
+				content: '';
+				position: fixed;
+				inset: -20% -20% -20% -20%;
+				background: radial-gradient(1200px 800px at 10% 10%, rgba(62,207,142,.15), transparent),
+					radial-gradient(1000px 700px at 90% 20%, rgba(59,130,246,.12), transparent),
+					radial-gradient(900px 600px at 50% 100%, rgba(244,63,94,.10), transparent);
+				filter: blur(40px);
+				z-index: 0;
+				animation: drift 22s ease-in-out infinite alternate;
+			}
+			.reveal .slides { position: relative; z-index: 1; }
+			@keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2%, 1%, 0); } }
+
 			.logos {
 				display: flex;
 				gap: 28px;
@@ -139,12 +155,7 @@
 						<h2>Coding</h2>
 					</section>
 					<section>
-						<div class="big-arrow green">⬆</div>
-						<div class="logos" style="margin-top: 24px;">
-							<div class="logo">🐍 Python</div>
-							<div class="logo">🟦 TypeScript</div>
-							<div class="logo">#️⃣ C#</div>
-						</div>
+						<img src="assets/badges.svg" alt="Languages: Python, TypeScript, C#" style="width: 90%; border-radius: 12px;"/>
 					</section>
 				</section>
 
@@ -154,9 +165,9 @@
 						<h2>Excel</h2>
 					</section>
 					<section>
-						<div class="big-arrow red">⬇</div>
+						<img src="assets/arrow-down-red.svg" alt="Down arrow" style="width: 260px;"/>
 						<p class="fragment">Apologies to Tyler (accountant)</p>
-						<div class="placeholder fragment">Python eats Excel → outputs Excel</div>
+						<img class="fragment" src="assets/placeholder.svg" alt="Excel visual" style="width: 80%; border-radius: 12px;"/>
 					</section>
 				</section>
 
@@ -167,6 +178,8 @@
 					</section>
 					<section>
 						<div class="placeholder">Hackerman stock photo</div>
+						<img class="fragment" src="assets/chart-up.svg" alt="Stock chart up" style="width: 65%; border-radius: 12px;"/>
+						<img class="fragment" src="assets/code-error.svg" alt="Code with errors" style="width: 65%; border-radius: 12px;"/>
 						<div class="buzz">
 							<span class="fragment">LLM</span>
 							<span class="fragment">Agent</span>
@@ -188,8 +201,8 @@
 						<h2>ETLs</h2>
 					</section>
 					<section>
-						<div class="big-arrow green">⬆</div>
-						<div class="placeholder" style="margin-top:16px;">Python eats Excel → outputs SQL table</div>
+						<img src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 260px;"/>
+						<img class="fragment" src="assets/etl.svg" alt="ETL graphic" style="width: 90%; border-radius: 12px; margin-top: 12px;"/>
 					</section>
 				</section>
 
