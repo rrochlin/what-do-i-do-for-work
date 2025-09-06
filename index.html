@@ -81,6 +81,7 @@
 			.media-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center; }
 			.starburst-wrap { position: relative; }
 			.starburst-wrap::before { content: ''; position: absolute; inset: -12px; border-radius: 18px; background: repeating-conic-gradient(rgba(239,68,68,0.9) 0 10deg, transparent 10deg 20deg); -webkit-mask: radial-gradient(circle, transparent 62%, black 63%); mask: radial-gradient(circle, transparent 62%, black 63%); filter: drop-shadow(0 12px 28px rgba(0,0,0,.35)); }
+			.bg-title { position: absolute; top: 18px; left: 18px; font-size: 28px; padding: 8px 12px; border-radius: 12px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2); }
 
 			.logos {
 				display: flex;
@@ -169,33 +170,18 @@
 						<h3>Home Office</h3>
 						<img data-id="home-photo" class="zoom-img" src="assets/Meika.jpeg" alt="Cat Meika" style="width: 90%; transform: translate(-1%, -1%);"/>
 					</section>
+					<section data-background-image="assets/Bothell_Commute.png" data-background-size="cover" data-background-position="center">
+						<div class="bg-title">Bothell — Commute</div>
+					</section>
 					<section>
-						<h3>Bothell Office</h3>
-						<ul>
-							<li class="fragment">Commute</li>
-							<li class="fragment">Google Maps photo</li>
-							<li class="fragment">Monitor + Keurig (zoom)</li>
-						</ul>
+						<h3>Bothell Office — Map</h3>
+						<iframe src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</section>
-					<section data-auto-animate>
-						<h3>Bothell Office</h3>
-						<img data-id="bot-commute" src="assets/Bothell_Commute.png" alt="Bothell commute traffic" style="width: 88%; border-radius: 12px; transform: translateX(0);"/>
-						<!-- Prepare map off-canvas to the right -->
-						<iframe data-id="bot-map" src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="transform: translateX(120vw); opacity: 0;"></iframe>
-					</section>
-					<section data-auto-animate>
-						<h3>Bothell Office</h3>
-						<img data-id="bot-commute" src="assets/Bothell_Commute.png" alt="Bothell commute traffic" style="width: 88%; border-radius: 12px; transform: translateX(-120vw); opacity: 0;"/>
-						<iframe data-id="bot-map" src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="transform: translateX(0); opacity: 1;"></iframe>
-					</section>
-					<section data-auto-animate>
-						<h3>Bothell Office</h3>
-						<!-- Slide previous out upwards -->
-						<img data-id="bot-commute" src="assets/Bothell_Commute.png" alt="Bothell commute traffic" style="width: 88%; border-radius: 12px; transform: translateY(-120vh); opacity: 0;"/>
-						<iframe data-id="bot-map" src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="transform: translateY(-120vh); opacity: 0;"></iframe>
+					<section>
+						<h3>Bothell Office — Monitor & Keurig</h3>
 						<div class="media-row">
-							<div class="fragment starburst-wrap panel"><img data-id="bot-monitor" src="assets/shitty_monitors.webp" alt="Bad monitor"/></div>
-							<div class="fragment starburst-wrap panel"><img data-id="bot-keurig" src="assets/bothell_keurig.webp" alt="Keurig decaf"/></div>
+							<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor"/></div>
+							<div class="starburst-wrap panel"><img src="assets/bothell_keurig.webp" alt="Keurig decaf"/></div>
 						</div>
 					</section>
 					<section>
@@ -206,10 +192,8 @@
 							<li class="fragment">Monitor + Keurig (zoom)</li>
 						</ul>
 					</section>
-					<section data-auto-animate>
-						<h3>Bellevue Office</h3>
-						<img data-id="bel-commute" src="assets/Bellevue_Commute.png" alt="Bellevue commute traffic" style="width: 88%; border-radius: 12px; transform: translateX(0);"/>
-						<iframe data-id="bel-map" src="https://www.google.com/maps/embed?pb=!4v1757194148354!6m8!1m7!1sh6oOS-4bjn6EQhHLF79BSg!2m2!1d47.61373813802781!2d-122.1935065311386!3f230.83005576797996!4f18.028265322749533!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="transform: translateX(120vw); opacity: 0;"></iframe>
+					<section data-background-image="assets/Bellevue_Commute.png" data-background-size="cover" data-background-position="center">
+						<div class="bg-title">Bellevue — Commute</div>
 					</section>
 					<section data-auto-animate>
 						<h3>Bellevue Office</h3>
