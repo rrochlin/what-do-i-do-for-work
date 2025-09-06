@@ -208,10 +208,34 @@
 						<h2>Coding</h2>
 					</section>
 					<section>
-						<div class="media-row">
-							<div class="panel">🐍 Python</div>
-							<div class="panel">🟦 TypeScript</div>
-							<div class="panel">#️⃣ C#</div>
+						<div class="panel" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items:start;">
+							<div>
+								<h3 style="margin-bottom:8px;">🐍 Python</h3>
+								<pre><code data-trim class="language-python">import requests
+resp = requests.get("https://api.example.com/users")
+users = resp.json()
+active = [u for u in users if u["active"]]
+print(len(active))
+</code></pre>
+							</div>
+							<div>
+								<h3 style="margin-bottom:8px;">🟦 TypeScript</h3>
+								<pre><code data-trim class="language-typescript">type User = { id: number; active: boolean }
+async function fetchUsers(): Promise<User[]> {
+  const res = await fetch('/api/users')
+  return res.json()
+}
+</code></pre>
+							</div>
+							<div>
+								<h3 style="margin-bottom:8px;">#️⃣ C#</h3>
+								<pre><code data-trim class="language-cs">record User(int Id, bool Active);
+using var http = new HttpClient();
+var users = await http.GetFromJsonAsync<User[]>("/api/users");
+var active = users!.Count(u => u.Active);
+Console.WriteLine(active);
+</code></pre>
+							</div>
 						</div>
 					</section>
 				</section>
