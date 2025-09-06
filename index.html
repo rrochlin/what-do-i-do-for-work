@@ -48,16 +48,25 @@
 			.reveal:before {
 				content: '';
 				position: fixed;
-				inset: -20% -20% -20% -20%;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				pointer-events: none;
 				background: radial-gradient(1200px 800px at 10% 10%, rgba(62,207,142,.15), transparent),
 					radial-gradient(1000px 700px at 90% 20%, rgba(59,130,246,.12), transparent),
 					radial-gradient(900px 600px at 50% 100%, rgba(244,63,94,.10), transparent);
 				filter: blur(40px);
 				z-index: 0;
 				animation: drift 22s ease-in-out infinite alternate;
+				will-change: transform;
 			}
 			.reveal .slides { position: relative; z-index: 1; }
 			@keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2%, 1%, 0); } }
+
+			/* Prevent slide overflow from shifting layout */
+			.reveal section { overflow: hidden; }
+			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 
 			.logos {
 				display: flex;
