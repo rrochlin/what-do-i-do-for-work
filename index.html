@@ -65,8 +65,8 @@
 			@keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2%, 1%, 0); } }
 
 			/* Prevent slide overflow from shifting layout */
-			.reveal section { overflow: hidden; }
-			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; max-height: 68vh; height: auto; object-fit: contain; }
+			.reveal section { overflow: hidden; position: relative; }
+			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; max-height: 50vh !important; height: auto !important; object-fit: contain; }
 			.reveal .slides iframe { display: block; margin: 0 auto; width: 80%; max-width: 1000px; height: 50vh; border: 0; border-radius: 12px; }
 
 			/* Minimal cohesive theme */
@@ -103,7 +103,7 @@
 			.zoom-img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 
 			/* Buzzwords animation for AI slide */
-			.buzz { position: relative; height: 48vh; margin-top: 12px; }
+			.buzz { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 50vh; z-index: 900; pointer-events: none; }
 			.buzz span { position: absolute; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 8px 22px rgba(0,0,0,.25); }
 			/* Scatter positions */
 			.buzz span:nth-child(1) { top: 4%; left: 8%; animation: fly1 6s ease-in-out infinite alternate; }
@@ -200,6 +200,15 @@
 							<div class="starburst-wrap panel"><img src="assets/Keurig_Bellevue.webp" alt="Keurig decaf"/></div>
 						</div>
 					</section>
+					<section>
+ 						<h3>Home — Commute</h3>
+ 						<img src="assets/home_commute.png" alt="Home commute" style="height: 50vh; border-radius: 12px;"/>
+ 						<div style="margin-top: 12px; display:flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
+ 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
+ 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
+ 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
+ 						</div>
+ 					</section>
 				</section>
 
 				<!-- Coding -->
@@ -355,7 +364,7 @@ Console.WriteLine(active);
 			});
 		</script>
 		<div id="yt-audio-player" style="position:fixed; width:1px; height:1px; left:-9999px; top:-9999px;"></div>
-		<button id="audio-toggle" class="panel" style="position:fixed; right:16px; bottom:16px; z-index:1000; padding:10px 14px; border-radius:12px; cursor:pointer;">Unmute</button>
+		<button id="audio-toggle" class="panel" style="position:fixed; left:16px; bottom:16px; z-index:1000; padding:10px 14px; border-radius:12px; cursor:pointer;">Unmute</button>
 
 		<script>
 			// Load YouTube IFrame API
@@ -364,17 +373,19 @@ Console.WriteLine(active);
 			document.head.appendChild( ytTag );
 
 			let ytPlayer;
+			// Add more YouTube IDs here to rotate between tracks
+			const musicIds = ['btPJPFnesV4'];
 			function onYouTubeIframeAPIReady() {
 				ytPlayer = new YT.Player('yt-audio-player', {
 					height: '1',
 					width: '1',
-					videoId: 'btPJPFnesV4',
+					videoId: musicIds[0],
 					playerVars: {
 						autoplay: 1,
 						controls: 0,
 						mute: 1,
 						loop: 1,
-						playlist: 'btPJPFnesV4',
+						playlist: musicIds.join(','),
 						playsinline: 1,
 						modestbranding: 1
 					},
@@ -382,7 +393,12 @@ Console.WriteLine(active);
 						onReady: (event) => {
 							try { event.target.mute(); } catch(e){}
 							try { event.target.setVolume(50); } catch(e){}
-							try { event.target.playVideo(); } catch(e){}
+							try {
+								if (musicIds.length > 1) {
+									event.target.cuePlaylist(musicIds, 0, 0);
+								}
+								event.target.playVideo();
+							} catch(e){}
 						}
 					}
 				});
@@ -404,6 +420,143 @@ Console.WriteLine(active);
 					}
 				} catch(e){}
 			});
+		</script>
+		<script>
+			// Simple SFX on transitions using Web Audio API (no external files)
+			(function(){
+				let audioCtx;
+				let sfxEnabled = true;
+				const sfxToggle = document.createElement('button');
+				sfxToggle.id = 'sfx-toggle';
+				sfxToggle.className = 'panel';
+				sfxToggle.textContent = 'SFX: On';
+				sfxToggle.style.position = 'fixed';
+				sfxToggle.style.left = '16px';
+				sfxToggle.style.bottom = '64px';
+				sfxToggle.style.zIndex = '1000';
+				sfxToggle.style.padding = '10px 14px';
+				sfxToggle.style.borderRadius = '12px';
+				sfxToggle.style.cursor = 'pointer';
+				document.body.appendChild(sfxToggle);
+
+				function ensureCtx() {
+					if (!audioCtx) {
+						audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+					}
+					if (audioCtx.state === 'suspended') {
+						audioCtx.resume().catch(()=>{});
+					}
+				}
+
+				function playBeep(freqStart=600, freqEnd=1200, duration=0.15) {
+					if (!sfxEnabled) return;
+					ensureCtx();
+					const t0 = audioCtx.currentTime;
+					const osc = audioCtx.createOscillator();
+					const gain = audioCtx.createGain();
+					osc.type = 'square';
+					osc.frequency.setValueAtTime(freqStart, t0);
+					osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + duration);
+					gain.gain.setValueAtTime(0.0001, t0);
+					gain.gain.exponentialRampToValueAtTime(0.2, t0 + 0.02);
+					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+					osc.connect(gain).connect(audioCtx.destination);
+					osc.start(t0);
+					osc.stop(t0 + duration + 0.02);
+				}
+
+				function playPop(duration=0.12) {
+					if (!sfxEnabled) return;
+					ensureCtx();
+					const t0 = audioCtx.currentTime;
+					const osc = audioCtx.createOscillator();
+					const gain = audioCtx.createGain();
+					osc.type = 'triangle';
+					osc.frequency.setValueAtTime(180, t0);
+					osc.frequency.exponentialRampToValueAtTime(900, t0 + duration);
+					gain.gain.setValueAtTime(0.0001, t0);
+					gain.gain.exponentialRampToValueAtTime(0.25, t0 + 0.015);
+					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+					osc.connect(gain).connect(audioCtx.destination);
+					osc.start(t0);
+					osc.stop(t0 + duration + 0.02);
+				}
+
+				function playDownSweep(duration=0.18) {
+					if (!sfxEnabled) return;
+					ensureCtx();
+					const t0 = audioCtx.currentTime;
+					const osc = audioCtx.createOscillator();
+					const gain = audioCtx.createGain();
+					osc.type = 'sawtooth';
+					osc.frequency.setValueAtTime(900, t0);
+					osc.frequency.exponentialRampToValueAtTime(160, t0 + duration);
+					gain.gain.setValueAtTime(0.0001, t0);
+					gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.02);
+					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+					osc.connect(gain).connect(audioCtx.destination);
+					osc.start(t0);
+					osc.stop(t0 + duration + 0.02);
+				}
+
+				// Unlock audio on first interaction
+				function unlock() {
+					ensureCtx();
+					// Warm up HTMLAudio as well
+					try { const v = cheer.volume; cheer.volume = 0; cheer.play().then(()=>cheer.pause()).catch(()=>{}); cheer.currentTime = 0; cheer.volume = v; } catch(_){}
+					try { const v = boo.volume; boo.volume = 0; boo.play().then(()=>boo.pause()).catch(()=>{}); boo.currentTime = 0; boo.volume = v; } catch(_){}
+					try { const v = vine.volume; vine.volume = 0; vine.play().then(()=>vine.pause()).catch(()=>{}); vine.currentTime = 0; vine.volume = v; } catch(_){}
+					try { const v = rim.volume; rim.volume = 0; rim.play().then(()=>rim.pause()).catch(()=>{}); rim.currentTime = 0; rim.volume = v; } catch(_){}
+					document.removeEventListener('pointerdown', unlock);
+					document.removeEventListener('keydown', unlock);
+				}
+				document.addEventListener('pointerdown', unlock, { once: true });
+				document.addEventListener('keydown', unlock, { once: true });
+
+				sfxToggle.addEventListener('click', () => {
+					sfxEnabled = !sfxEnabled;
+					sfxToggle.textContent = sfxEnabled ? 'SFX: On' : 'SFX: Off';
+				});
+
+				// Preload labeled MP3s from assets
+				const cheer = new Audio('assets/crowd-cheering-383111.mp3');
+				cheer.preload = 'auto'; cheer.volume = 0.8;
+				const boo = new Audio('assets/boo-6377.mp3');
+				boo.preload = 'auto'; boo.volume = 0.8;
+				const vine = new Audio('assets/vine-boom-392646.mp3');
+				vine.preload = 'auto'; vine.volume = 0.85;
+				const rim = new Audio('assets/rimshot-joke-funny-80325.mp3');
+				rim.preload = 'auto'; rim.volume = 0.8;
+
+				function playCheer() { if (!sfxEnabled) return; try { cheer.currentTime = 0; cheer.play().catch(()=>{}); } catch(_){} }
+				function playBoo() { if (!sfxEnabled) return; try { boo.currentTime = 0; boo.play().catch(()=>{}); } catch(_){} }
+				function playVine() { if (!sfxEnabled) return; try { vine.currentTime = 0; vine.play().catch(()=>{}); } catch(_){} }
+				function playRim() { if (!sfxEnabled) return; try { rim.currentTime = 0; rim.play().catch(()=>{}); } catch(_){} }
+
+				// Hook into reveal.js events
+				if (window.Reveal) {
+					Reveal.on('slidechanged', (event) => {
+						// Randomize between a few short effects
+						const r = Math.random();
+						if (r < 0.34) playBeep();
+						else if (r < 0.67) playPop();
+						else playDownSweep();
+						// Chance to play a meme effect too
+						const m = Math.random();
+						if (m < 0.2) playVine(); else if (m < 0.35) playRim();
+
+						// Conditional meme SFX based on current slide content
+						const slide = event.currentSlide || document.querySelector('.slides section.present');
+						if (slide) {
+							const hasGreen = slide.querySelector('img[src*="arrow-up-green.svg"], img[src*="Bothell_Commute"], img[src*="home_commute"], img[src*="home_office_coffee"], img[src*="Meika"]');
+							const hasRed = slide.querySelector('img[src*="arrow-down-red.svg"], img[src*="Bellevue_Commute"]');
+							if (hasGreen && !hasRed) playCheer();
+							else if (hasRed) playBoo();
+						}
+					});
+					Reveal.on('fragmentshown', () => { playPop(0.08); });
+				}
+			})();
 		</script>
 	</body>
 </html>
