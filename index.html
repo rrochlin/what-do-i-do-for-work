@@ -57,6 +57,17 @@
 				background: rgba(255,255,255,0.06);
 				border: 1px solid rgba(255,255,255,0.15);
 			}
+
+			/* Auto-animate helpers */
+			.zoom-note { margin-top: 10px; opacity: .85; }
+			.zoom-img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+
+			/* Buzzwords animation for AI slide */
+			.buzz { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin-top: 18px; }
+			.buzz span { padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); animation: float 6s ease-in-out infinite alternate; }
+			.buzz span:nth-child(odd) { animation-duration: 7s; }
+			.buzz span:nth-child(3n) { animation-delay: .8s; }
+			@keyframes float { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-12px) rotate(2deg); } }
 		</style>
 	</head>
 	<body>
@@ -76,17 +87,28 @@
 					</section>
 					<section>
 						<h3>Home Office</h3>
-						<ul>
-							<li class="fragment">Full office</li>
-							<li class="fragment">Zoom in: Laptops</li>
-							<li class="fragment">Zoom in: Gaming PC</li>
-							<li class="fragment">Breville espresso setup</li>
-							<li class="fragment">Cat Meika</li>
-						</ul>
-						<figure class="fragment">
-							<img src="assets/placeholder.svg" alt="Home office placeholder" style="width: 80%; border-radius: 12px;"/>
-							<figcaption style="margin-top: 8px; opacity: .8;">Replace with your real images</figcaption>
-						</figure>
+						<img data-id="home-photo" class="zoom-img" src="assets/placeholder.svg" alt="Home office" style="width: 70%;"/>
+						<p class="zoom-note">Overview</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Home Office</h3>
+						<img data-id="home-photo" class="zoom-img" src="assets/placeholder.svg" alt="Home office laptops" style="width: 120%; transform: translate(6%, -6%);"/>
+						<p class="zoom-note">Zoom: Laptops</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Home Office</h3>
+						<img data-id="home-photo" class="zoom-img" src="assets/placeholder.svg" alt="Home office gaming pc" style="width: 130%; transform: translate(-8%, 2%);"/>
+						<p class="zoom-note">Zoom: Gaming PC</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Home Office</h3>
+						<img data-id="home-photo" class="zoom-img" src="assets/placeholder.svg" alt="Espresso setup" style="width: 110%; transform: translate(0, 6%);"/>
+						<p class="zoom-note">Breville espresso setup</p>
+					</section>
+					<section data-auto-animate>
+						<h3>Home Office</h3>
+						<img data-id="home-photo" class="zoom-img" src="assets/placeholder.svg" alt="Cat Meika" style="width: 115%; transform: translate(-4%, -4%);"/>
+						<p class="zoom-note">Cat Meika</p>
 					</section>
 					<section>
 						<h3>Bothell Office</h3>
@@ -145,6 +167,17 @@
 					</section>
 					<section>
 						<div class="placeholder">Hackerman stock photo</div>
+						<div class="buzz">
+							<span class="fragment">LLM</span>
+							<span class="fragment">Agent</span>
+							<span class="fragment">Vector DB</span>
+							<span class="fragment">RAG</span>
+							<span class="fragment">Fine-tune</span>
+							<span class="fragment">Embedding</span>
+							<span class="fragment">Prompt</span>
+							<span class="fragment">Eval</span>
+							<span class="fragment">GPU</span>
+						</div>
 						<p class="fragment">Buzzwords everywhere • Stock soaring • Code with errors</p>
 					</section>
 				</section>
