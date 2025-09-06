@@ -102,11 +102,25 @@
 			.zoom-img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 
 			/* Buzzwords animation for AI slide */
-			.buzz { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin-top: 18px; }
-			.buzz span { padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); animation: float 6s ease-in-out infinite alternate; }
-			.buzz span:nth-child(odd) { animation-duration: 7s; }
-			.buzz span:nth-child(3n) { animation-delay: .8s; }
-			@keyframes float { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-12px) rotate(2deg); } }
+			.buzz { position: relative; height: 48vh; margin-top: 12px; }
+			.buzz span { position: absolute; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 8px 22px rgba(0,0,0,.25); }
+			/* Scatter positions */
+			.buzz span:nth-child(1) { top: 4%; left: 8%; animation: fly1 6s ease-in-out infinite alternate; }
+			.buzz span:nth-child(2) { top: 18%; left: 26%; animation: fly2 7s ease-in-out infinite alternate; }
+			.buzz span:nth-child(3) { top: 6%; right: 10%; animation: fly3 6.5s ease-in-out infinite alternate; }
+			.buzz span:nth-child(4) { top: 40%; left: 6%; animation: fly2 7.5s ease-in-out infinite alternate; }
+			.buzz span:nth-child(5) { top: 30%; right: 20%; animation: fly1 5.8s ease-in-out infinite alternate; }
+			.buzz span:nth-child(6) { bottom: 6%; left: 24%; animation: fly3 8s ease-in-out infinite alternate; }
+			.buzz span:nth-child(7) { bottom: 10%; right: 28%; animation: fly2 7.2s ease-in-out infinite alternate; }
+			.buzz span:nth-child(8) { top: 52%; left: 42%; animation: fly1 6.8s ease-in-out infinite alternate; }
+			.buzz span:nth-child(9) { top: 14%; left: 56%; animation: fly3 6.2s ease-in-out infinite alternate; }
+			@keyframes fly1 { from { transform: translate(-8px, -6px) rotate(-2deg); } to { transform: translate(12px, 8px) rotate(3deg); } }
+			@keyframes fly2 { from { transform: translate(6px, -10px) rotate(1deg); } to { transform: translate(-10px, 12px) rotate(-3deg); } }
+			@keyframes fly3 { from { transform: translate(0px, 0px) rotate(-1deg); } to { transform: translate(14px, -6px) rotate(2deg); } }
+
+			/* Error messages panel */
+			.errors { display: grid; gap: 8px; margin-top: 10px; }
+			.errors .err { font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 22px; padding: 10px 12px; border-radius: 10px; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.5); color: #fecaca; box-shadow: var(--shadow); }
 
 			/* Smash/Slap animations for logos */
 			.smash-stage { position: relative; display: grid; place-items: center; }
@@ -240,8 +254,13 @@ with engine.begin() as conn:
 					</section>
 					<section data-auto-animate>
 						<img data-id="ai-hero" src="assets/hackerman.gif" alt="Hackerman" style="width: 28%; border-radius: 12px;"/>
-						<img class="fragment" src="assets/chart-up.svg" alt="Stock chart up" style="width: 48%; border-radius: 12px;"/>
-						<img class="fragment" src="assets/code-error.svg" alt="Code with errors" style="width: 48%; border-radius: 12px;"/>
+						<img class="fragment" src="assets/chart-up.svg" alt="Stock chart up" style="width: 42%; border-radius: 12px;"/>
+						<div class="errors fragment">
+							<div class="err">RuntimeError: CUDA out of memory</div>
+							<div class="err">ValueError: could not broadcast input array</div>
+							<div class="err">KeyError: 'embedding'</div>
+							<div class="err">TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'</div>
+						</div>
 						<div class="buzz">
 							<span class="fragment">LLM</span>
 							<span class="fragment">Agent</span>
@@ -253,7 +272,6 @@ with engine.begin() as conn:
 							<span class="fragment">Eval</span>
 							<span class="fragment">GPU</span>
 						</div>
-						<p class="fragment">Buzzwords everywhere • Stock soaring • Code with errors</p>
 					</section>
 				</section>
 
