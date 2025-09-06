@@ -11,6 +11,7 @@ We are inside of a reveal.js starter project that I want to customize and deploy
       * Stock photo of a low quality monitor
       * Photo of a Kuerig with the spiky outline and decaf coffee
    * Bellevue Office
+      * Commute (rush hour, 405 south backed up)
       * Big Red Down arrow
       * Picture of a google maps route from my house to bellevue during rush hour
       * Photos of 405 south being backed up from traffic
