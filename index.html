@@ -184,6 +184,31 @@
 					<section>
 						<img src="assets/badges.svg" alt="Languages: Python, TypeScript, C#" style="width: 90%; border-radius: 12px;"/>
 					</section>
+					<section data-auto-animate>
+						<h3>Python ETL snippet</h3>
+						<pre data-id="code-demo"><code data-trim data-line-numbers class="language-python">
+import pandas as pd
+
+df = pd.read_excel("sales.xlsx")
+df = df.rename(columns={"Sales$": "sales_usd"})
+print(df.head())
+                    </code></pre>
+					</section>
+					<section data-auto-animate>
+						<h3>Python ETL snippet</h3>
+						<pre data-id="code-demo"><code data-trim data-line-numbers="1-3|4-6|7-12" class="language-python">
+import pandas as pd
+import sqlalchemy as sa
+
+df = pd.read_excel("sales.xlsx")
+df = df.rename(columns={"Sales$": "sales_usd"})
+df["sales_eur"] = df["sales_usd"] * 0.92
+
+engine = sa.create_engine("postgresql+psycopg2://user:pass@db/sales")
+with engine.begin() as conn:
+    df.to_sql("sales", conn, if_exists="replace", index=False)
+                    </code></pre>
+					</section>
 				</section>
 
 				<!-- Excel -->
