@@ -63,6 +63,35 @@ async function main() {
     await copyRecursive(assetsSrc, path.join(distDir, 'assets'));
   }
 
+  // Vendor three.js minimal files into dist/vendor/three
+  try {
+    const vendorDir = path.join(distDir, 'vendor', 'three');
+    await ensureDir(vendorDir);
+    const threeRoot = path.join(rootDir, 'node_modules', 'three');
+    const copyPairs = [
+      // core build
+      ['build/three.min.js', 'build/three.min.js'],
+      // loaders
+      ['examples/js/loaders/GLTFLoader.js', 'examples/js/loaders/GLTFLoader.js'],
+      ['examples/js/loaders/DRACOLoader.js', 'examples/js/loaders/DRACOLoader.js'],
+      // draco decoders (js/wasm)
+      ['examples/js/libs/draco/draco_decoder.js', 'examples/js/libs/draco/draco_decoder.js'],
+      ['examples/js/libs/draco/draco_decoder.wasm', 'examples/js/libs/draco/draco_decoder.wasm'],
+      ['examples/js/libs/draco/draco_wasm_wrapper.js', 'examples/js/libs/draco/draco_wasm_wrapper.js'],
+      ['examples/js/libs/draco/draco_encoder.wasm', 'examples/js/libs/draco/draco_encoder.wasm'],
+      ['examples/js/libs/draco/draco_encoder.js', 'examples/js/libs/draco/draco_encoder.js']
+    ];
+    for (const [srcRel, dstRel] of copyPairs) {
+      const src = path.join(threeRoot, srcRel);
+      const dst = path.join(vendorDir, dstRel);
+      if (fs.existsSync(src)) {
+        await copyRecursive(src, dst);
+      }
+    }
+  } catch (e) {
+    console.warn('Warning: Failed to vendor three.js files:', e.message);
+  }
+
   // Rewrite and place index.html into dist/
   await rewriteIndexHtml(rootDir, distDir);
 
@@ -70,6 +99,7 @@ async function main() {
   console.log('Prepared dist/ for static hosting:');
   console.log(' - Copied plugin/ and assets/ into dist/');
   console.log(' - Wrote dist/index.html with rewritten asset paths');
+  console.log(' - Vendored three.js runtime to dist/vendor/three');
 }
 
 main().catch((err) => {

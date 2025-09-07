@@ -522,8 +522,11 @@ Console.WriteLine(active);
 						</div>
 					</section (The Keurigs Suck)>
 				</section>
-				<!-- three.js finale (GitHub page) -->
-				<section data-background-iframe="https://threejs.org/examples/webgl_animation_keyframes.html" data-background-interactive data-preload></section>
+				<!-- three.js finale (local) -->
+				<section id="three-finale" style="position: relative; height: 70vh;">
+					<div class="finale-msg"><h2>Thanks for staying to the end!<br/>Like, subscribe, and hit that bell for more content 🔔</h2></div>
+					<div class="finale-credit">Model: <a href="https://artstation.com/artwork/1AGwX" target="_blank" rel="noopener">Littlest Tokyo</a> by <a href="https://artstation.com/glenatron" target="_blank" rel="noopener">Glen Fox</a>, CC Attribution.</div>
+				</section>
 			</div>
 		</div>
 
@@ -701,10 +704,10 @@ Console.WriteLine(active);
 				let initialized = false;
 				function loadScript(src){ return new Promise((res, rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=(e)=>{ console.error('Failed to load', src, e); rej(e); }; document.head.appendChild(s); }); }
 				async function initFinale(){
-					if (initialized) return; initialized = true;
-					await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js');
-					await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js');
-					await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/DRACOLoader.js');
+ 					if (initialized) return; initialized = true;
+					try { await loadScript('./vendor/three/build/three.min.js'); } catch(_) { await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js'); }
+					try { await loadScript('./vendor/three/examples/js/loaders/GLTFLoader.js'); } catch(_) { await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js'); }
+					try { await loadScript('./vendor/three/examples/js/loaders/DRACOLoader.js'); } catch(_) { await loadScript('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/DRACOLoader.js'); }
 					const section = document.getElementById('three-finale');
 					const w = section.clientWidth; const h = section.clientHeight || section.getBoundingClientRect().height;
 					const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -720,9 +723,9 @@ Console.WriteLine(active);
 					let mixer = null; let model = null;
 					const loader = new THREE.GLTFLoader();
 					const draco = new THREE.DRACOLoader();
-					draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/libs/draco/');
+					try { draco.setDecoderPath('./vendor/three/examples/js/libs/draco/'); } catch(_) { draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/libs/draco/'); }
 					loader.setDRACOLoader(draco);
-					loader.load('https://threejs.org/examples/models/gltf/LittlestTokyo.glb', (gltf)=>{
+					loader.load('assets/LittlestTokyo.glb', (gltf)=>{
 						model = gltf.scene;
 						model.scale.set(0.01, 0.01, 0.01);
 						scene.add(model);
