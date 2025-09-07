@@ -54,39 +54,57 @@
 			}
 
 			/* Subtle animated gradient backdrop */
-			.reveal:before {
+			/* Modern animated background theme: gradient mesh + grid + grain */
+			.reveal::before {
 				content: '';
 				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100vw;
-				height: 100vh;
-				pointer-events: none;
-				background: radial-gradient(1200px 800px at 10% 10%, rgba(62,207,142,.15), transparent),
-					radial-gradient(1000px 700px at 90% 20%, rgba(59,130,246,.12), transparent),
-					radial-gradient(900px 600px at 50% 100%, rgba(244,63,94,.10), transparent);
-				filter: blur(40px);
+				inset: 0;
 				z-index: 0;
-				animation: drift 22s ease-in-out infinite alternate;
-				will-change: transform;
+				pointer-events: none;
+				background:
+					radial-gradient(1200px 800px at 15% 20%, rgba(34,197,94,.18), transparent 60%),
+					radial-gradient(1200px 900px at 85% 25%, rgba(59,130,246,.20), transparent 60%),
+					radial-gradient(900px 650px at 50% 95%, rgba(236,72,153,.16), transparent 60%);
+				filter: blur(38px);
+				animation: bgShift 28s ease-in-out infinite alternate;
 			}
+			.reveal::after {
+				content: '';
+				position: fixed;
+				inset: 0;
+				z-index: 0;
+				pointer-events: none;
+				background:
+					linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+					repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 80px),
+					repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 80px);
+				mix-blend-mode: overlay;
+				box-shadow: inset 0 0 120px rgba(0,0,0,.55);
+				opacity: .9;
+			}
+			@keyframes bgShift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-1%, 1%, 0) scale(1.02); } }
 			.reveal .slides { z-index: 1; }
-			@keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2%, 1%, 0); } }
 
 			/* Prevent slide overflow from shifting layout */
 			.reveal section { overflow: hidden; position: relative; }
 			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; max-height: 70vh !important; height: auto !important; object-fit: contain; }
 			.reveal .slides iframe { display: block; margin: 0 auto; width: 80%; max-width: 1000px; height: 70vh; border: 0; border-radius: 12px; }
 
-			/* Minimal cohesive theme */
-			.reveal:before { content: none; }
+			/* Glassy panels and modern accents */
 			:root {
-				--panel-bg: rgba(255,255,255,0.04);
-				--panel-border: rgba(255,255,255,0.14);
-				--shadow: 0 10px 30px rgba(0,0,0,.28);
+				--panel-bg: rgba(255,255,255,0.06);
+				--panel-border: rgba(255,255,255,0.18);
+				--shadow: 0 20px 50px rgba(0,0,0,.35);
 			}
-			h1, h2, h3 { letter-spacing: 0.5px; }
-			.panel { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 14px; padding: 10px; box-shadow: var(--shadow); }
+			h1, h2, h3 { letter-spacing: 0.6px; }
+			.panel {
+				background: var(--panel-bg);
+				border: 1px solid var(--panel-border);
+				border-radius: 16px;
+				padding: 12px;
+				box-shadow: var(--shadow);
+				backdrop-filter: blur(10px) saturate(120%);
+			}
 			.media-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center; }
 			.starburst-wrap { position: relative; }
 			.starburst-wrap::before { content: ''; position: absolute; inset: -12px; border-radius: 18px; background: repeating-conic-gradient(rgba(239,68,68,0.9) 0 10deg, transparent 10deg 20deg); -webkit-mask: radial-gradient(circle, transparent 62%, black 63%); mask: radial-gradient(circle, transparent 62%, black 63%); filter: drop-shadow(0 12px 28px rgba(0,0,0,.35)); }
@@ -120,7 +138,16 @@
 			.wojack { display:inline-block; font-weight: 900; -webkit-text-stroke: 1px rgba(255,255,255,.65); color: transparent; background: linear-gradient(45deg, #ef4444, #3b82f6); -webkit-background-clip: text; background-clip: text; text-shadow: 0 6px 16px rgba(0,0,0,.35); }
 			.soylent { display:inline-block; padding: 2px 6px; border-radius: 6px; background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.35); color: #bbf7d0; font-weight: 700; }
 			.tummy-cute { display:inline-block; font-weight: 900; background: radial-gradient(circle at 40% 40%, #f9a8d4, #f472b6, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.7); text-shadow: 0 6px 16px rgba(0,0,0,.35); animation: tummyPop 2.2s ease-in-out infinite; }
-			@keyframes tummyPop { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-1px) scale(1.04); } 100% { transform: translateY(0) scale(1); } }
+			.brand-badge { display:inline-block; padding: 1px 6px; border-radius: 6px; background: rgba(59,130,246,.15); border: 1px solid rgba(59,130,246,.35); color: #c7d2fe; font-weight: 700; }
+			.main-badge { display:inline-block; padding: 1px 6px; border-radius: 6px; background: rgba(234,179,8,.15); border: 1px solid rgba(234,179,8,.35); color: #fde68a; font-weight: 800; }
+			.coach-badge { display:inline-block; padding: 1px 6px; border-radius: 6px; background: rgba(168,85,247,.15); border: 1px solid rgba(168,85,247,.35); color: #e9d5ff; font-weight: 700; }
+			.pro-badge { display:inline-block; padding: 1px 6px; border-radius: 6px; background: rgba(16,185,129,.18); border: 1px solid rgba(16,185,129,.35); color: #bbf7d0; font-weight: 800; }
+			.darkroast { display:inline-block; font-weight: 900; background: linear-gradient(90deg, #4b5563, #111827); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.6); }
+			.love-glow { display:inline-block; font-weight: 900; background: linear-gradient(45deg, #f472b6, #ef4444); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 6px 18px rgba(244,114,182,.35); }
+			.better-badge { display:inline-block; padding: 1px 6px; border-radius: 6px; background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.35); color: #86efac; font-weight: 800; }
+			.good-check { display:inline-block; color: #22c55e; font-weight: 900; margin-right: 6px; }
+			.bad-x { display:inline-block; color: #ef4444; font-weight: 900; margin-right: 6px; }
+			.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
 			/* Apology + fire word effect */
 			.apology { font-size: 28px; text-align: center; margin: 6px 0 10px; }
@@ -144,11 +171,11 @@
 			.metal { background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 30%, #4b5563 50%, #9ca3af 70%, #e5e7eb 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(0,0,0,.4); text-shadow: 0 6px 18px rgba(0,0,0,.35); }
 			.big { font-size: 1.35em; }
 
-			/* Extra-crazy animated word art for 'thirty' */
-			.thirty-crazy { display:inline-block; font-weight: 900; letter-spacing: .6px; background: conic-gradient(from 45deg, #60a5fa, #a78bfa, #f472b6, #f97316, #22c55e, #60a5fa); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,.75); text-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 18px rgba(99,102,241,.35); animation: hueShift 3.6s ease-in-out infinite alternate, wobble 2.2s ease-in-out infinite; position: relative; padding: 0 4px; }
-			.thirty-crazy::before, .thirty-crazy::after { content: '✨'; position: absolute; opacity: .9; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
-			.thirty-crazy::before { left: -1.1em; top: -0.6em; animation: sparkle1 2.8s ease-in-out infinite; }
-			.thirty-crazy::after { right: -1.0em; bottom: -0.4em; animation: sparkle2 3.2s ease-in-out infinite; }
+			/* Psychotic title styles (amped) */
+			.psych-wrap { position: relative; display: grid; place-items: center; gap: 10px; }
+			.neon-title { font-size: 92px; margin: 0; line-height: 0.9; font-weight: 1000; letter-spacing: 1.2px; background: conic-gradient(from 0.25turn, #22c55e, #3b82f6, #a855f7, #f43f5e, #f59e0b, #22c55e); background-size: 220% 220%; -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 10px 36px rgba(0,0,0,.6), 0 0 24px rgba(99,102,241,.35); animation: hueShift 3.2s ease-in-out infinite alternate, wobble 2.2s ease-in-out infinite; }
+			.byline { margin: 4px 0 6px; font-weight: 900; letter-spacing: .75px; background: linear-gradient(90deg, #e879f9, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 8px 24px rgba(0,0,0,.5); position: relative; }
+			.byline::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); bottom: -6px; width: 64%; height: 3px; background: linear-gradient(90deg, rgba(99,102,241,.8), rgba(236,72,153,.8)); border-radius: 999px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.4)); }
 			@keyframes hueShift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 			@keyframes wobble { 0% { transform: rotate(-1.5deg) scale(1.04); } 50% { transform: rotate(0.8deg) scale(1.0); } 100% { transform: rotate(-1deg) scale(1.03); } }
 			@keyframes sparkle1 { 0% { transform: translate(0,0) rotate(0deg) scale(1); } 50% { transform: translate(4px,-2px) rotate(14deg) scale(1.08); } 100% { transform: translate(0,0) rotate(0deg) scale(1); } }
@@ -248,8 +275,11 @@
 			<div class="slides" id="slides-root">
 				<!-- Title -->
 				<section>
-					<h1>What I Do</h1>
-					<p class="badge">App Developer / Analyst @ Utility</p>
+					<div class="psych-wrap">
+						<h1 class="neon-title">What I Do</h1>
+						<h3 class="byline">Robert Rochlin</h3>
+						<p class="badge">App Developer / Analyst @ Puget Sound Energy</p>
+					</div>
 				</section>
 
 				<!-- Locations -->
@@ -296,7 +326,7 @@
 						<h3>Office Perks</h3>
 						<div class="row-two">
 							<ul class="slide-bullets fade-in left">
-								<li>Based Keurig</li>
+								<li><span class="based-badge">Based</span> Keurig</li>
 							</ul>
 							<div class="col-stack">
 								<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor" style="height: 30vh !important; max-height: 30vh !important; width: auto;"/></div>
@@ -343,7 +373,9 @@
 						<h3>Office Perks (The Keurigs Suck)</h3>
 						<div class="row-two">
 							<ul class="slide-bullets fade-in left">
-								single pod keurig that is always out of fucking water that NO ONE ELSE REFILLS that I have to take time refilling, and everyone looks at me while THEY LINE UP FOR COFFEE.
+								<li><span class="bad-x" aria-hidden="true">✕</span> single pod <span class="brand-badge">Keurig</span> that is always out of water</li>
+								<li><span class="bad-x" aria-hidden="true">✕</span> NO ONE ELSE REFILLS it and I have to stop and refill</li>
+								<li><span class="bad-x" aria-hidden="true">✕</span> people <span class="wojack">line up</span> and stare while I refill it</li>
 							</ul>
 							<div class="col-stack">
 								<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor" style="height: 30vh !important; max-height: 30vh !important; width: auto;"/></div>
@@ -364,8 +396,8 @@
 						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
 						<img data-id="home-photo" class="zoom-img" src="assets/home_office_laptops.jpg" alt="Home office laptops" style="width: 90%; transform: translate(2%, -2%);"/>
 						<ul class="slide-bullets fade-in">
-							<li>Macbook for sidework/coach coding</li>
-							<li>main laptop for main job</li>
+							<li><span class="brand-badge">Macbook</span> for sidework/<span class="coach-badge">coach</span> coding</li>
+							<li><span class="main-badge">main</span> laptop for <span class="main-badge">main</span> job</li>
 						</ul>
 					</section>
 					<section data-auto-animate>
@@ -389,9 +421,9 @@
 						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
 						<div class="row-two">
 							<ul class="slide-bullets left" style="max-width: 560px;">
-								<li>Breville Bambino and Digital Grinder</li>
+								<li><span class="brand-badge">Breville</span> Bambino and Digital Grinder</li>
 								<li>limited to 4 shots of espresso per day or else it hurts my <span class="tummy-cute">tummy</span></li>
-								<li>dark roast exclusively</li>
+								<li><span class="darkroast">dark roast</span> exclusively</li>
 							</ul>
 							<div><img data-id="home-photo" class="zoom-img" src="assets/home_office_coffee.jpg" alt="Espresso setup" style="width: 70%; transform: none;"/></div>
 						</div>
@@ -400,7 +432,7 @@
 						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
 						<img data-id="home-photo" class="zoom-img" src="assets/Meika.jpeg" alt="Cat Meika" style="width: 90%; transform: translate(-1%, -1%);"/>
 						<ul class="slide-bullets fade-in">
-							<li>professional full time in house entertainment</li>
+							<li><span class="pro-badge">professional</span> full time in house entertainment</li>
 							<li>doesn't pay rent</li>
 						</ul>
 					</section>
@@ -412,7 +444,7 @@
 						<h2>Coding</h2>
 					</section>
 					<section>
-						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/Python_logo.svg" alt="Python logo" style="height:20px;"/><span>Python</span></h3>
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img class="inline-logo" src="assets/Python_logo.svg" alt="Python logo"/><span>Python</span></h3>
 						<pre><code data-trim class="language-python">import requests
 resp = requests.get("https://api.example.com/users")
 users = resp.json()
@@ -420,13 +452,13 @@ active = [u for u in users if u["active"]]
 print(len(active))
 </code></pre>
 						<ul class="slide-bullets fade-in">
-							<li>my main gurl</li>
-							<li>my first love</li>
+							<li>my <span class="main-badge">main</span> <span class="love-glow">gurl</span></li>
+							<li>my first <span class="love-glow">love</span></li>
 							<li>I don't get to use it for everything anymore</li>
 						</ul>
 					</section>
 					<section>
-						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/TypeScript_logo.svg" alt="TypeScript logo" style="height:20px;"/><span>TypeScript</span></h3>
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img class="inline-logo" src="assets/TypeScript_logo.svg" alt="TypeScript logo"/><span>TypeScript</span></h3>
 						<pre><code data-trim class="language-typescript">type User = { id: number; active: boolean }
 async function fetchUsers(): Promise<User[]> {
   const res = await fetch('/api/users')
@@ -435,11 +467,11 @@ async function fetchUsers(): Promise<User[]> {
 </code></pre>
 						<ul class="slide-bullets fade-in">
 							<li>I'm writing a lot more of this now and it's growing on me</li>
-							<li>better than javascript (sorry that no one gets that joke)</li>
+							<li><span class="better-badge">better</span> than <span class="brand-badge">javascript</span> (sorry that no one gets that joke)</li>
 						</ul>
 					</section>
 					<section>
-						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/CSharp_logo.svg" alt="C# logo" style="height:20px;"/><span>C#</span></h3>
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img class="inline-logo" src="assets/CSharp_logo.svg" alt="C# logo"/><span>C#</span></h3>
 						<pre><code data-trim class="language-cs">record User(int Id, bool Active);
 using var http = new HttpClient();
 var users = await http.GetFromJsonAsync<User[]>("/api/users");
@@ -447,8 +479,8 @@ var active = users!.Count(u => u.Active);
 Console.WriteLine(active);
 </code></pre>
 						<ul class="slide-bullets fade-in">
-							<li>Everyone hates this language but it aint that bad</li>
-							<li>Owned by microsoft</li>
+							<li>Everyone hates this language but it aint that <span class="better-badge">bad</span></li>
+							<li>Owned by <span class="brand-badge">microsoft</span></li>
 						</ul>
 					</section>
 				</section>
@@ -463,21 +495,25 @@ Console.WriteLine(active);
 					</section>
 					<section data-auto-animate>
 						<h3 data-id="excel-apology" class="apology docked" style="margin: 0 0 8px 0; font-size: 32px;">Sorry Tyler but Excel <span class="fire">MEGA SUCKS</span></h3>
-						<img class="fragment" src="assets/python-eats-excel-poops-excel--t3chat--1.png" alt="Python eats Excel and poops Excel" style="width: 80%; border-radius: 12px;"/>
-						<ul class="slide-bullets fade-in">
-							<li>I write code that takes data from excel</li>
-							<li>Python ingests the data</li>
-							<li>aaaaaaand it goes right back into excel</li>
-						</ul>
+						<img data-id="excel-img" class="zoom-img" src="assets/python-eats-excel-poops-excel--t3chat--1.png" alt="Python eats Excel and poops Excel" style="width: 80%; border-radius: 12px;"/>
+					</section>
+					<section data-auto-animate>
+						<h3 data-id="excel-apology" class="apology docked" style="margin: 0 0 8px 0; font-size: 32px;">Sorry Tyler but Excel <span class="fire">MEGA SUCKS</span></h3>
+						<div class="row-two">
+							<ul class="slide-bullets left" style="max-width: 560px;">
+								<li>I write code that takes data from <span class="brand-badge">excel</span></li>
+								<li><span class="brand-badge">Python</span> ingests the data</li>
+								<li>aaaaaaand it goes right back into <span class="brand-badge">excel</span></li>
+							</ul>
+							<div><img data-id="excel-img" class="zoom-img" src="assets/python-eats-excel-poops-excel--t3chat--1.png" alt="Python eats Excel and poops Excel" style="width: 60%; border-radius: 12px;"/></div>
+						</div>
 					</section>
 					<section>
 						<h3>Management Reaction</h3>
-						<img src="assets/disappointed-anime-shareholders--t3chat--1.png" alt="Disappointed shareholders" style="width: 80%; border-radius: 12px;"/>
-						<ul class="slide-bullets fade-in">
-							<li>:red-x: kicking the can down the road</li>
-							<li>:red-x: promotes "tribal" knowledge</li>
-							<li>:green-check: lots of job security</li>
-						</ul>
+						<!-- Frame 1: image only -->
+						<section data-auto-animate>
+							<img data-id="mgmt-img" src="assets/disappointed-anime-shareholders--t3chat--1.png" alt="Disappointed shareholders" style="width: 80%; border-radius: 12px;"/>
+						</section>
 					</section>
 				</section>
 
