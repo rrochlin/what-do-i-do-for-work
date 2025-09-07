@@ -117,6 +117,18 @@
 			.metal { background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 30%, #4b5563 50%, #9ca3af 70%, #e5e7eb 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(0,0,0,.4); text-shadow: 0 6px 18px rgba(0,0,0,.35); }
 			.big { font-size: 1.35em; }
 
+			/* Extra-crazy animated word art for 'thirty' */
+			.thirty-crazy { display:inline-block; font-weight: 900; letter-spacing: .6px; background: conic-gradient(from 45deg, #60a5fa, #a78bfa, #f472b6, #f97316, #22c55e, #60a5fa); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,.75); text-shadow: 0 8px 24px rgba(0,0,0,.45), 0 0 18px rgba(99,102,241,.35); animation: hueShift 3.6s ease-in-out infinite alternate, wobble 2.2s ease-in-out infinite; position: relative; padding: 0 4px; }
+			.thirty-crazy::before, .thirty-crazy::after { content: '✨'; position: absolute; opacity: .9; filter: drop-shadow(0 4px 8px rgba(0,0,0,.35)); }
+			.thirty-crazy::before { left: -1.1em; top: -0.6em; animation: sparkle1 2.8s ease-in-out infinite; }
+			.thirty-crazy::after { right: -1.0em; bottom: -0.4em; animation: sparkle2 3.2s ease-in-out infinite; }
+			@keyframes hueShift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+			@keyframes wobble { 0% { transform: rotate(-1.5deg) scale(1.04); } 50% { transform: rotate(0.8deg) scale(1.0); } 100% { transform: rotate(-1deg) scale(1.03); } }
+			@keyframes sparkle1 { 0% { transform: translate(0,0) rotate(0deg) scale(1); } 50% { transform: translate(4px,-2px) rotate(14deg) scale(1.08); } 100% { transform: translate(0,0) rotate(0deg) scale(1); } }
+			@keyframes sparkle2 { 0% { transform: translate(0,0) rotate(0deg) scale(1); } 50% { transform: translate(-6px,2px) rotate(-12deg) scale(1.06); } 100% { transform: translate(0,0) rotate(0deg) scale(1); } }
+			/* Better wrapping for side text */
+			.row-two .left .slide-bullets { max-width: 560px; }
+
 			/* Two-column side-by-side layout */
 				.row-two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
 				.row-two .left { text-align: left; }
@@ -196,9 +208,11 @@
 
 			/* Finale overlay text styles */
 			.finale-msg { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; z-index: 950; pointer-events: none; }
-			.finale-msg h2 { margin: 0; font-size: 42px; line-height: 1.2; text-shadow: 0 8px 24px rgba(0,0,0,.5); }
+			.finale-msg h2 { margin: 0; font-size: 42px; line-height: 1.2; text-shadow: 0 8px 24px rgba(0,0,0,.5); animation: popIn .8s ease-out both, glowPulse 4s ease-in-out infinite alternate; }
 			.finale-credit { position: absolute; right: 16px; bottom: 12px; font-size: 14px; opacity: .8; z-index: 951; pointer-events: auto; }
 			#three-finale canvas { position: absolute; inset: 0; z-index: 900; }
+			@keyframes popIn { from { opacity: 0; transform: translateY(12px) scale(0.96); letter-spacing: 0.5px; } to { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 0.8px; } }
+			@keyframes glowPulse { from { text-shadow: 0 8px 24px rgba(0,0,0,.5), 0 0 0 rgba(59,130,246,0); } to { text-shadow: 0 10px 28px rgba(0,0,0,.55), 0 0 20px rgba(59,130,246,.25); } }
 		</style>
 	</head>
 	<body>
@@ -240,9 +254,6 @@
 						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
 						<h3>Map</h3>
 						<iframe src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-						<ul class="slide-bullets fade-in">
-							<li>Based Campus</li>
-						</ul>
 					</section>
 					<section data-auto-animate>
 						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
@@ -251,9 +262,6 @@
 							<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor"/></div>
 							<div class="starburst-wrap panel"><img src="assets/bothell_keurig.webp" alt="Keurig decaf"/></div>
 						</div>
-						<ul class="slide-bullets fade-in">
-							<li>Based Keurig</li>
-						</ul>
 					</section>
 					<section data-auto-animate>
 						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
@@ -293,9 +301,6 @@
 						<h2 data-id="loc-title2" style="margin: 0 0 8px 0; font-size: 32px;">Bellevue</h2>
 						<h3>Map</h3>
 						<iframe src="https://www.google.com/maps/embed?pb=!4v1757194148354!6m8!1m7!1sh6oOS-4bjn6EQhHLF79BSg!2m2!1d47.61373813802781!2d-122.1935065311386!3f230.83005576797996!4f18.028265322749533!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-						<ul class="slide-bullets fade-in">
-							<li>Soylent campus</li>
-						</ul>
 					</section>
 					<section data-auto-animate>
 						<h2 data-id="loc-title2" style="margin: 0 0 8px 0; font-size: 32px;">Bellevue</h2>
@@ -310,7 +315,7 @@
 						<h3>Office Perks (The Keurigs Suck)</h3>
 						<div class="row-two">
 							<ul class="slide-bullets fade-in left">
-								<li>single pod keurig that is always out of fucking water that NO ONE ELSE REFILLS that I have to take time refilling, and everyone looks at me while THEY LINE UP FOR COFFEE.</li>
+								single pod keurig that is always out of fucking water that NO ONE ELSE REFILLS that I have to take time refilling, and everyone looks at me while THEY LINE UP FOR COFFEE.
 							</ul>
 							<div class="col-stack">
 								<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor" style="height: 30vh !important; max-height: 30vh !important; width: auto;"/></div>
@@ -338,9 +343,12 @@
 					<section data-auto-animate>
 						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
 						<img data-id="home-photo" class="zoom-img" src="assets/home_office_gaming_pc.jpg" alt="Home office gaming pc" style="width: 95%; transform: translate(-2%, 1%);"/>
-						<ul class="slide-bullets fade-in">
-							<li>Gaming PC that I don't play games on anymore because I'm <span class="metal big">thirty</span></li>
-						</ul>
+						<div class="row-two">
+							<ul class="slide-bullets fade-in left" style="max-width: 560px;">
+								<li>Gaming PC that I don't play games on anymore because I'm <span class="thirty-crazy">thirty</span></li>
+							</ul>
+							<div><img data-id="home-photo" class="zoom-img" src="assets/home_office_gaming_pc.jpg" alt="Home office gaming pc" style="width: 70%; transform: none;"/></div>
+						</div>
 					</section>
 					<section data-auto-animate>
 						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
@@ -523,7 +531,7 @@ Console.WriteLine(active);
 					</section (The Keurigs Suck)>
 				</section>
 				<!-- three.js finale (local) -->
-				<section id="three-finale" style="position: relative; height: 70vh;">
+				<section id="three-finale" data-background-iframe="finale-threejs.html" data-background-interactive data-preload style="position: relative; height: 70vh;">
 					<div class="finale-msg"><h2>Thanks for staying to the end!<br/>Like, subscribe, and hit that bell for more content 🔔</h2></div>
 					<div class="finale-credit">Model: <a href="https://artstation.com/artwork/1AGwX" target="_blank" rel="noopener">Littlest Tokyo</a> by <a href="https://artstation.com/glenatron" target="_blank" rel="noopener">Glen Fox</a>, CC Attribution.</div>
 				</section>
@@ -550,6 +558,30 @@ Console.WriteLine(active);
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 		</script>
+		<script>
+			// Convert bullet lists to fragments so items appear one at a time
+			(function(){
+				function applyBulletFragments(){
+					const lists = document.querySelectorAll('ul.slide-bullets');
+					lists.forEach((ul) => {
+						// Remove auto list fade so fragments control reveal timing
+						ul.classList.remove('fade-in');
+						const items = ul.querySelectorAll('li');
+						items.forEach((li, idx) => {
+							li.classList.add('fragment');
+							li.setAttribute('data-fragment-index', String(idx));
+						});
+					});
+				}
+				if (window.Reveal){
+					Reveal.on('ready', applyBulletFragments);
+					Reveal.on('slidechanged', applyBulletFragments);
+				} else {
+					// Fallback if Reveal not available yet
+					document.addEventListener('DOMContentLoaded', applyBulletFragments);
+				}
+			})();
+		</script>
 		<div id="yt-audio-player" style="position:fixed; width:1px; height:1px; left:-9999px; top:-9999px;"></div>
 		<button id="audio-toggle" class="panel" style="position:fixed; left:16px; bottom:16px; z-index:1000; padding:10px 14px; border-radius:12px; cursor:pointer;">Unmute</button>
 
@@ -563,35 +595,41 @@ Console.WriteLine(active);
 			// Add more YouTube IDs here to rotate between tracks
 			const musicIds = ['btPJPFnesV4', 'zA52uNzx7Y4'];
 			function onYouTubeIframeAPIReady() {
-				ytPlayer = new YT.Player('yt-audio-player', {
-					height: '1',
-					width: '1',
-					videoId: musicIds[0],
-					playerVars: {
-						autoplay: 1,
-						controls: 0,
-						mute: 1,
-						loop: 1,
-						playlist: musicIds.join(','),
-						playsinline: 1,
-						modestbranding: 1
-					},
-					events: {
-						onReady: (event) => {
-							try { event.target.mute(); } catch(e){}
-							try { event.target.setVolume(50); } catch(e){}
-							try {
-								if (musicIds.length > 1) {
-									event.target.cuePlaylist(musicIds, 0, 0);
-								}
-								event.target.playVideo();
-							} catch(e){}
+ 				ytPlayer = new YT.Player('yt-audio-player', {
+ 					height: '1',
+ 					width: '1',
+ 					videoId: musicIds[0],
+ 					playerVars: {
+ 						autoplay: 1,
+ 						controls: 0,
+ 						mute: 1,
+ 						loop: 1,
+ 						playlist: musicIds.join(','),
+ 						playsinline: 1,
+ 						modestbranding: 1
+ 					},
+ 					events: {
+ 						onReady: (event) => {
+ 							try { event.target.mute(); } catch(e){}
+ 							try { event.target.setVolume(50); } catch(e){}
+ 							try {
+ 								if (musicIds.length > 1) {
+ 									event.target.cuePlaylist(musicIds, 0, 0);
+ 								}
+ 								event.target.playVideo();
+ 							} catch(e){}
+ 						},
+						onStateChange: (ev) => {
+							// Retry play on unstarted/paused states
+							if (ev.data === YT.PlayerState.UNSTARTED || ev.data === YT.PlayerState.PAUSED) {
+								try { ytPlayer.playVideo(); } catch(_){ }
+							}
 						}
-					}
-				});
-			}
+ 					}
+ 				});
+ 			}
 
-			// Toggle button logic (required for browser autoplay policies)
+			// Toggle button + user gesture to unlock audio on mobile
 			const toggleBtn = document.getElementById('audio-toggle');
 			toggleBtn.addEventListener('click', () => {
 				if (!ytPlayer) return;
@@ -603,10 +641,11 @@ Console.WriteLine(active);
 						toggleBtn.textContent = 'Mute';
 					} else {
 						ytPlayer.mute();
-	 					toggleBtn.textContent = 'Unmute';
+						toggleBtn.textContent = 'Unmute';
 					}
 				} catch(e){}
 			});
+			document.addEventListener('pointerdown', () => { try { ytPlayer.playVideo(); } catch(_){} }, { once: true });
 		</script>
 		<script>
 			// Simple SFX on transitions using Web Audio API (no external files)
@@ -690,8 +729,11 @@ Console.WriteLine(active);
 							else if (hasRed) playBoo();
 							// Play wow on the gaming PC frame
 							if (slide.querySelector('img[src*="home_office_gaming_pc"]')) playWow();
-							// Play sad violin on Bellevue Office Perks (detect Keurig_Bellevue image)
-							if (slide.querySelector('img[src*="Keurig_Bellevue"]')) playSad();
+							// Play sad violin only once on the first Bellevue Office Perks grid (media-row)
+							if (!window.__sadPlayedOnce && slide.querySelector('.media-row') && slide.querySelector('img[src*="Keurig_Bellevue"]')) {
+								playSad();
+								window.__sadPlayedOnce = true;
+							}
 						}
 					});
 					Reveal.on('fragmentshown', () => {});

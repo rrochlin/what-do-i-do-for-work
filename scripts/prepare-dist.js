@@ -95,10 +95,17 @@ async function main() {
   // Rewrite and place index.html into dist/
   await rewriteIndexHtml(rootDir, distDir);
 
+  // Copy finale-threejs.html into dist/
+  const finaleSrc = path.join(rootDir, 'finale-threejs.html');
+  if (fs.existsSync(finaleSrc)) {
+    await copyRecursive(finaleSrc, path.join(distDir, 'finale-threejs.html'));
+  }
+
   // Log summary
   console.log('Prepared dist/ for static hosting:');
   console.log(' - Copied plugin/ and assets/ into dist/');
   console.log(' - Wrote dist/index.html with rewritten asset paths');
+  console.log(' - Copied finale-threejs.html into dist/');
   console.log(' - Vendored three.js runtime to dist/vendor/three');
 }
 
