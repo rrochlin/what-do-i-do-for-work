@@ -11,6 +11,14 @@
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css">
 
+		<!-- Link performance hints -->
+		<link rel="preconnect" href="https://www.youtube.com" crossorigin>
+		<link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+		<link rel="preconnect" href="https://s.ytimg.com" crossorigin>
+		<link rel="dns-prefetch" href="//www.youtube.com">
+		<link rel="dns-prefetch" href="//i.ytimg.com">
+		<link rel="dns-prefetch" href="//s.ytimg.com">
+
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
@@ -94,6 +102,18 @@
 			.word.grad3 { background: linear-gradient(45deg, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; color: transparent; }
 			.word.outline { -webkit-text-stroke: 2px rgba(255,255,255,0.85); color: transparent; }
 			.word.panelish { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); }
+
+			/* Link enhancements */
+			.reveal a { color: #93c5fd; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; transition: color .2s ease, text-decoration-color .2s ease; }
+			.reveal a:hover { color: #bfdbfe; text-decoration-color: #bfdbfe; }
+			.reveal a:focus-visible { outline: 3px solid rgba(59,130,246,.6); outline-offset: 2px; border-radius: 6px; }
+			.reveal a[target="_blank"]::after { content: '↗'; font-size: .85em; margin-left: .25em; opacity: .8; }
+			@media (prefers-reduced-motion: reduce) { .reveal a { transition: none; } }
+			@media (prefers-contrast: more) { .reveal a { color: #cde3ff; text-decoration-thickness: 2px; } }
+
+			/* Skip link */
+			.skip-link { position: absolute; left: -9999px; top: -9999px; background: #111827; color: #fff; padding: 8px 12px; border-radius: 8px; z-index: 2000; }
+			.skip-link:focus { left: 12px; top: 12px; outline: 3px solid rgba(59,130,246,.8); }
 
 			/* Inline badges for emphasized words */
 			.based-badge { display:inline-block; padding: 2px 8px; border-radius: 999px; background: linear-gradient(90deg, #10b981, #22c55e); color: #0b1a12; font-weight: 800; letter-spacing: .4px; box-shadow: 0 6px 16px rgba(16,185,129,.35); }
@@ -223,8 +243,9 @@
 		</style>
 	</head>
 	<body>
+		<a href="#slides-root" class="skip-link">Skip to slides</a>
 		<div class="reveal">
-			<div class="slides">
+			<div class="slides" id="slides-root">
 				<!-- Title -->
 				<section>
 					<h1>What I Do</h1>
@@ -549,7 +570,7 @@ Console.WriteLine(active);
 				<!-- three.js finale (local) -->
 				<section id="three-finale" data-background-iframe="finale-threejs.html" data-background-interactive data-preload style="position: relative; height: 70vh;">
 					<div class="finale-msg"><h2>Thanks for staying to the end!<br/>Like, subscribe, and hit that bell for more content 🔔</h2></div>
-					<div class="finale-credit">Model: <a href="https://artstation.com/artwork/1AGwX" target="_blank" rel="noopener">Littlest Tokyo</a> by <a href="https://artstation.com/glenatron" target="_blank" rel="noopener">Glen Fox</a>, CC Attribution.</div>
+					<div class="finale-credit">Model: <a href="https://artstation.com/artwork/1AGwX" target="_blank" rel="noopener noreferrer" title="View Littlest Tokyo on ArtStation">Littlest Tokyo</a> by <a href="https://artstation.com/glenatron" target="_blank" rel="noopener noreferrer" title="Artist: Glen Fox on ArtStation">Glen Fox</a>, CC Attribution.</div>
 				</section>
 			</div>
 		</div>
@@ -559,6 +580,14 @@ Console.WriteLine(active);
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script>
+			// Accessibility: show strong focus styles when navigating with keyboard
+			(function(){
+				let usingKeyboard = false;
+				function onKeyDown(e){ if (e.key === 'Tab') { usingKeyboard = true; document.body.classList.add('using-keyboard'); } }
+				function onPointer(){ if (usingKeyboard) { usingKeyboard = false; document.body.classList.remove('using-keyboard'); } }
+				document.addEventListener('keydown', onKeyDown);
+				document.addEventListener('pointerdown', onPointer);
+			})();
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
