@@ -66,8 +66,8 @@
 
 			/* Prevent slide overflow from shifting layout */
 			.reveal section { overflow: hidden; position: relative; }
-			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; max-height: 50vh !important; height: auto !important; object-fit: contain; }
-			.reveal .slides iframe { display: block; margin: 0 auto; width: 80%; max-width: 1000px; height: 50vh; border: 0; border-radius: 12px; }
+			.reveal .slides img { display: block; margin: 0 auto; max-width: 100%; max-height: 70vh !important; height: auto !important; object-fit: contain; }
+			.reveal .slides iframe { display: block; margin: 0 auto; width: 80%; max-width: 1000px; height: 70vh; border: 0; border-radius: 12px; }
 
 			/* Minimal cohesive theme */
 			.reveal:before { content: none; }
@@ -81,6 +81,28 @@
 			.media-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center; }
 			.starburst-wrap { position: relative; }
 			.starburst-wrap::before { content: ''; position: absolute; inset: -12px; border-radius: 18px; background: repeating-conic-gradient(rgba(239,68,68,0.9) 0 10deg, transparent 10deg 20deg); -webkit-mask: radial-gradient(circle, transparent 62%, black 63%); mask: radial-gradient(circle, transparent 62%, black 63%); filter: drop-shadow(0 12px 28px rgba(0,0,0,.35)); }
+			/* Overlay adornments (e.g. arrows) above media */
+			.overlay-abs { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 920; pointer-events: none; }
+			.overlay-abs img { width: 22vh; filter: drop-shadow(0 14px 30px rgba(0,0,0,.35)); }
+
+			/* Word art helpers */
+			.word-art { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; margin: 12px 0; z-index: 915; }
+			.word { font-weight: 900; letter-spacing: .5px; padding: 6px 10px; border-radius: 10px; text-shadow: 0 4px 14px rgba(0,0,0,.35); }
+			.word.grad1 { background: linear-gradient(45deg, #f97316, #f43f5e); -webkit-background-clip: text; background-clip: text; color: transparent; }
+			.word.grad2 { background: linear-gradient(45deg, #22c55e, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+			.word.grad3 { background: linear-gradient(45deg, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; color: transparent; }
+			.word.outline { -webkit-text-stroke: 2px rgba(255,255,255,0.85); color: transparent; }
+			.word.panelish { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); }
+
+			/* Apology + fire word effect */
+			.apology { font-size: 28px; text-align: center; margin: 6px 0 10px; }
+			.fire { position: relative; display: inline-block; padding: 0 6px; font-weight: 900; letter-spacing: .5px; color: transparent; -webkit-text-stroke: 2px rgba(0,0,0,.6); background: radial-gradient(circle at 40% 30%, #fff59d 0%, #fcd34d 18%, #fb923c 38%, #f97316 56%, #ef4444 76%, #991b1b 100%); -webkit-background-clip: text; background-clip: text; animation: flameShift 1.1s ease-in-out infinite alternate; text-shadow: 0 0 12px rgba(249,115,22,.45), 0 0 22px rgba(239,68,68,.35); }
+			.fire::before, .fire::after { content: '🔥'; position: absolute; font-size: .8em; opacity: .9; filter: drop-shadow(0 6px 12px rgba(0,0,0,.35)); }
+			.fire::before { top: -0.9em; left: -0.4em; animation: ember 1.6s ease-in-out infinite alternate; }
+			.fire::after { top: -0.8em; right: -0.5em; animation: ember 1.9s ease-in-out infinite alternate-reverse; }
+			@keyframes flameShift { from { background-position: 40% 30%; transform: rotate(-0.6deg) scale(1.02); } to { background-position: 60% 70%; transform: rotate(0.6deg) scale(0.98); } }
+			@keyframes ember { from { transform: translateY(2px) rotate(-6deg); } to { transform: translateY(-3px) rotate(6deg); } }
+
 			.bg-title { position: absolute; top: 18px; left: 18px; font-size: 28px; padding: 8px 12px; border-radius: 12px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.2); }
 
 			.logos {
@@ -103,7 +125,7 @@
 			.zoom-img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 
 			/* Buzzwords animation for AI slide */
-			.buzz { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 50vh; z-index: 900; pointer-events: none; }
+			.buzz { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 70vh; z-index: 900; pointer-events: none; }
 			.buzz span { position: absolute; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 8px 22px rgba(0,0,0,.25); }
 			/* Scatter positions */
 			.buzz span:nth-child(1) { top: 4%; left: 8%; animation: fly1 6s ease-in-out infinite alternate; }
@@ -129,6 +151,12 @@
 			@keyframes smash-in { to { transform: scale(1) rotate(-12deg); opacity: 1; } }
 			.slap-logo { position: absolute; width: 220px; transform: translate(220px, -80px) rotate(-18deg) scale(.6); opacity: 0; filter: drop-shadow(0 18px 30px rgba(0,0,0,.4)); animation: slap-in .5s .25s ease forwards; }
 			@keyframes slap-in { to { transform: translate(140px, -40px) rotate(-10deg) scale(1); opacity: 1; } }
+
+			/* Logo cutout helper: visually drop white backgrounds on JPGs */
+			.logo-cutout { mix-blend-mode: multiply; background: transparent !important; }
+			@media (prefers-color-scheme: light) {
+				.logo-cutout { mix-blend-mode: darken; }
+			}
 		</style>
 	</head>
 	<body>
@@ -146,69 +174,78 @@
 						<h2>Locations</h2>
 						<p>Home office, Bothell office, Bellevue office</p>
 					</section>
-					<section>
-						<h3>Home Office</h3>
-						<img data-id="home-photo" class="zoom-img" src="assets/home_office_setup.jpg" alt="Home office" style="width: 60%;"/>
-						<p class="zoom-note">Overview</p>
+					<!-- Bothell title center -->
+					<section data-auto-animate>
+						<h2 data-id="loc-title" style="margin: 0;">Bothell</h2>
+					</section>
+					<!-- Bothell slides with title at top -->
+					<section data-auto-animate>
+						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
+						<h3>Commute</h3>
+						<img src="assets/Bothell_Commute.png" alt="Bothell commute traffic" style="height: 70vh; border-radius: 12px;"/>
 					</section>
 					<section data-auto-animate>
-						<h3>Home Office</h3>
-						<img data-id="home-photo" class="zoom-img" src="assets/home_office_laptops.jpg" alt="Home office laptops" style="width: 90%; transform: translate(2%, -2%);"/>
-						<p class="zoom-note">Zoom: Laptops</p>
-					</section>
-					<section data-auto-animate>
-						<h3>Home Office</h3>
-						<img data-id="home-photo" class="zoom-img" src="assets/home_office_gaming_pc.jpg" alt="Home office gaming pc" style="height: 50vh; transform: translate(-2%, 1%);"/>
-						<p class="zoom-note">Zoom: Gaming PC</p>
-					</section>
-					<section data-auto-animate>
-						<h3>Home Office</h3>
-						<img data-id="home-photo" class="zoom-img" src="assets/home_office_coffee.jpg" alt="Espresso setup" style="height: 50vh; transform: translate(0, 2%);"/>
-						<p class="zoom-note">Breville espresso setup</p>
-					</section>
-					<section data-auto-animate>
-						<h3>Home Office</h3>
-						<img data-id="home-photo" class="zoom-img" src="assets/Meika.jpeg" alt="Cat Meika" style="width: 90%; height: 50vh; transform: translate(-1%, -1%);"/>
-					</section>
-					<section>
-						<h3>Bothell — Commute</h3>
-						<img src="assets/Bothell_Commute.png" alt="Bothell commute traffic" style="height: 50vh; border-radius: 12px;"/>
-					</section>
-					<section>
-						<h3>Bothell — Map</h3>
+						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
+						<h3>Map</h3>
 						<iframe src="https://www.google.com/maps/embed?pb=!4v1757194240377!6m8!1m7!1s2p2Yjiusa1nHasKdJ2FbTA!2m2!1d47.77403729291684!2d-122.1805999251403!3f252.35585774593937!4f0.3078498876912761!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</section>
-					<section>
-						<h3>Bothell — Monitor & Keurig</h3>
+					<section data-auto-animate>
+						<h2 data-id="loc-title" style="margin: 0 0 8px 0; font-size: 32px;">Bothell</h2>
+						<h3>Office Perks</h3>
 						<div class="media-row">
 							<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor"/></div>
 							<div class="starburst-wrap panel"><img src="assets/bothell_keurig.webp" alt="Keurig decaf"/></div>
 						</div>
 					</section>
-					<section>
-						<h3>Bellevue — Commute</h3>
+
+					<!-- Bellevue title center -->
+					<section data-auto-animate>
+						<h2 data-id="loc-title2" style="margin: 0;">Bellevue</h2>
+					</section>
+					<!-- Bellevue slides with title at top -->
+					<section data-auto-animate>
+						<h2 data-id="loc-title2" style="margin: 0 0 8px 0; font-size: 32px;">Bellevue</h2>
+						<h3>Commute</h3>
 						<img src="assets/Bellevue_Commute.png" alt="Bellevue commute traffic" style="width: 86%; border-radius: 12px;"/>
 					</section>
-					<section>
-						<h3>Bellevue — Map</h3>
+					<section data-auto-animate>
+						<h2 data-id="loc-title2" style="margin: 0 0 8px 0; font-size: 32px;">Bellevue</h2>
+						<h3>Map</h3>
 						<iframe src="https://www.google.com/maps/embed?pb=!4v1757194148354!6m8!1m7!1sh6oOS-4bjn6EQhHLF79BSg!2m2!1d47.61373813802781!2d-122.1935065311386!3f230.83005576797996!4f18.028265322749533!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</section>
-					<section>
-						<h3>Bellevue — Monitor & Keurig</h3>
+					<section data-auto-animate>
+						<h2 data-id="loc-title2" style="margin: 0 0 8px 0; font-size: 32px;">Bellevue</h2>
+						<h3>Office Perks (The Keurigs Suck)</h3>
 						<div class="media-row">
 							<div class="starburst-wrap panel"><img src="assets/shitty_monitors.webp" alt="Bad monitor"/></div>
 							<div class="starburst-wrap panel"><img src="assets/Keurig_Bellevue.webp" alt="Keurig decaf"/></div>
 						</div>
 					</section>
-					<section>
- 						<h3>Home — Commute</h3>
- 						<img src="assets/home_commute.png" alt="Home commute" style="height: 50vh; border-radius: 12px;"/>
- 						<div style="margin-top: 12px; display:flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
- 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
- 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
- 							<img class="fragment" src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 120px;"/>
- 						</div>
- 					</section>
+
+					<!-- Home Office moved to end -->
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0;">Home Office</h2>
+					</section>
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
+						<img data-id="home-photo" class="zoom-img" src="assets/home_office_setup.jpg" alt="Home office" style="width: 60%;"/>
+					</section>
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
+						<img data-id="home-photo" class="zoom-img" src="assets/home_office_laptops.jpg" alt="Home office laptops" style="width: 90%; transform: translate(2%, -2%);"/>
+					</section>
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
+						<img data-id="home-photo" class="zoom-img" src="assets/home_office_gaming_pc.jpg" alt="Home office gaming pc" style="width: 95%; transform: translate(-2%, 1%);"/>
+					</section>
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
+						<img data-id="home-photo" class="zoom-img" src="assets/home_office_coffee.jpg" alt="Espresso setup" style="width: 85%; transform: translate(0, 2%);"/>
+					</section>
+					<section data-auto-animate>
+						<h2 data-id="loc-title3" style="margin: 0 0 8px 0; font-size: 32px;">Home Office</h2>
+						<img data-id="home-photo" class="zoom-img" src="assets/Meika.jpeg" alt="Cat Meika" style="width: 90%; transform: translate(-1%, -1%);"/>
+					</section>
 				</section>
 
 				<!-- Coding -->
@@ -217,35 +254,31 @@
 						<h2>Coding</h2>
 					</section>
 					<section>
-						<div class="panel" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items:start;">
-							<div>
-								<h3 style="margin-bottom:8px;">🐍 Python</h3>
-								<pre><code data-trim class="language-python">import requests
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/Python_logo.svg" alt="Python logo" style="height:28px;"/><span>Python</span></h3>
+						<pre><code data-trim class="language-python">import requests
 resp = requests.get("https://api.example.com/users")
 users = resp.json()
 active = [u for u in users if u["active"]]
 print(len(active))
 </code></pre>
-							</div>
-							<div>
-								<h3 style="margin-bottom:8px;">🟦 TypeScript</h3>
-								<pre><code data-trim class="language-typescript">type User = { id: number; active: boolean }
+					</section>
+					<section>
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/TypeScript_logo.svg" alt="TypeScript logo" style="height:28px;"/><span>TypeScript</span></h3>
+						<pre><code data-trim class="language-typescript">type User = { id: number; active: boolean }
 async function fetchUsers(): Promise<User[]> {
   const res = await fetch('/api/users')
   return res.json()
 }
 </code></pre>
-							</div>
-							<div>
-								<h3 style="margin-bottom:8px;">#️⃣ C#</h3>
-								<pre><code data-trim class="language-cs">record User(int Id, bool Active);
+					</section>
+					<section>
+						<h3 style="margin-bottom:8px; display:flex; align-items:center; gap:8px; justify-content:center;"><img src="assets/CSharp_logo.svg" alt="C# logo" style="height:28px;"/><span>C#</span></h3>
+						<pre><code data-trim class="language-cs">record User(int Id, bool Active);
 using var http = new HttpClient();
 var users = await http.GetFromJsonAsync<User[]>("/api/users");
 var active = users!.Count(u => u.Active);
 Console.WriteLine(active);
 </code></pre>
-							</div>
-						</div>
 					</section>
 				</section>
 
@@ -254,10 +287,13 @@ Console.WriteLine(active);
 					<section>
 						<h2>Excel</h2>
 					</section>
-					<section>
-						<img src="assets/arrow-down-red.svg" alt="Down arrow" style="width: 260px;"/>
-						<p class="fragment">Apologies to Tyler (accountant)</p>
+					<section data-auto-animate>
+						<p class="apology">Sorry Tyler but Excel <span class="fire">MEGA SUCKS</span></p>
 						<img class="fragment" src="assets/python-eats-excel-poops-excel--t3chat--1.png" alt="Python eats Excel and poops Excel" style="width: 80%; border-radius: 12px;"/>
+					</section>
+					<section>
+						<h3>Management Reaction</h3>
+						<img src="assets/disappointed-anime-shareholders--t3chat--1.png" alt="Disappointed shareholders" style="width: 80%; border-radius: 12px;"/>
 					</section>
 				</section>
 
@@ -278,30 +314,37 @@ Console.WriteLine(active);
 							<div class="err">KeyError: 'embedding'</div>
 							<div class="err">TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'</div>
 						</div>
-						<div class="buzz">
-							<span class="fragment">LLM</span>
-							<span class="fragment">Agent</span>
-							<span class="fragment">Vector DB</span>
-							<span class="fragment">RAG</span>
-							<span class="fragment">Fine-tune</span>
-							<span class="fragment">Embedding</span>
-							<span class="fragment">Prompt</span>
-							<span class="fragment">Eval</span>
-							<span class="fragment">GPU</span>
+						<div class="buzz fragment">
+							<span>LLM</span>
+							<span>Agent</span>
+							<span>Vector DB</span>
+							<span>RAG</span>
+							<span>Fine-tune</span>
+							<span>Embedding</span>
+							<span>Prompt</span>
+							<span>Eval</span>
+							<span>GPU</span>
 						</div>
 					</section>
+					<section>
+						<h3>Shareholders Reaction</h3>
+						<img src="assets/looking-at-you-approving--t3chat--1.png" alt="Shareholders happy" style="width: 80%; border-radius: 12px;"/>
+					</section>
 				</section>
-
 				<!-- ETLs -->
-				<section>
+ 				<section>
+ 					<section>
+ 						<h2>ETLs</h2>
+ 					</section>
 					<section>
-						<h2>ETLs</h2>
+						<div style="position:relative; display:grid; place-items:center;">
+							<img src="assets/python-transforms-excel-to-sql--t3chat--1.png" alt="Python transforms Excel to SQL" style="border-radius: 12px;"/>
+							<div class="overlay-abs fragment" style="top: 22%; left: 82%; transform: translate(-90%, -90%);">
+								<img src="assets/arrow-up-green.svg" alt="Up arrow"/>
+							</div>
+						</div>
 					</section>
-					<section>
-						<img src="assets/arrow-up-green.svg" alt="Up arrow" style="width: 260px;"/>
-						<img class="fragment" src="assets/python-transforms-excel-to-sql--t3chat--1.png" alt="Python transforms Excel to SQL" style="width: 90%; border-radius: 12px; margin-top: 12px;"/>
-					</section>
-				</section>
+ 				</section>
 
 				<!-- Sparkie -->
 				<section>
@@ -310,12 +353,12 @@ Console.WriteLine(active);
 					</section>
 					<section data-auto-animate>
 						<div class="smash-stage" style="height: 65vh;">
-							<img data-id="spark-logo" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
+							<img data-id="spark-logo" class="logo-cutout" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
 						</div>
 					</section>
 					<section data-auto-animate>
 						<div class="smash-stage" style="height: 65vh;">
-							<img data-id="spark-logo" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
+							<img data-id="spark-logo" class="logo-cutout" src="assets/chatgpt-logo-WLhZGmQC.jpg" alt="ChatGPT logo" style="width: 38%; border-radius: 14px;"/>
 							<div class="smash-x">✕</div>
 							<img class="slap-logo" src="assets/PSE_logo.png" alt="PSE logo"/>
 						</div>
@@ -329,16 +372,16 @@ Console.WriteLine(active);
 					</section>
 					<section data-auto-animate>
 						<div class="smash-stage" style="height: 65vh;">
-							<img data-id="rfp-logo" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px; background:#fff; padding:8px;"/>
+							<img data-id="rfp-logo" class="logo-cutout" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px;"/>
 						</div>
 					</section>
 					<section data-auto-animate>
 						<div class="smash-stage" style="height: 65vh;">
-							<img data-id="rfp-logo" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px; background:#fff; padding:8px;"/>
+							<img data-id="rfp-logo" class="logo-cutout" src="assets/turbo-tax-logo.png" alt="TurboTax logo" style="width: 40%; border-radius: 12px;"/>
 							<div class="smash-x">✕</div>
 							<img class="slap-logo" src="assets/PSE_logo.png" alt="PSE logo"/>
 						</div>
-					</section>
+					</section (The Keurigs Suck)>
 				</section>
 			</div>
 		</div>
@@ -374,7 +417,7 @@ Console.WriteLine(active);
 
 			let ytPlayer;
 			// Add more YouTube IDs here to rotate between tracks
-			const musicIds = ['btPJPFnesV4'];
+			const musicIds = ['btPJPFnesV4', 'zA52uNzx7Y4'];
 			function onYouTubeIframeAPIReady() {
 				ytPlayer = new YT.Player('yt-audio-player', {
 					height: '1',
@@ -448,65 +491,14 @@ Console.WriteLine(active);
 					}
 				}
 
-				function playBeep(freqStart=600, freqEnd=1200, duration=0.15) {
-					if (!sfxEnabled) return;
-					ensureCtx();
-					const t0 = audioCtx.currentTime;
-					const osc = audioCtx.createOscillator();
-					const gain = audioCtx.createGain();
-					osc.type = 'square';
-					osc.frequency.setValueAtTime(freqStart, t0);
-					osc.frequency.exponentialRampToValueAtTime(freqEnd, t0 + duration);
-					gain.gain.setValueAtTime(0.0001, t0);
-					gain.gain.exponentialRampToValueAtTime(0.2, t0 + 0.02);
-					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
-					osc.connect(gain).connect(audioCtx.destination);
-					osc.start(t0);
-					osc.stop(t0 + duration + 0.02);
-				}
-
-				function playPop(duration=0.12) {
-					if (!sfxEnabled) return;
-					ensureCtx();
-					const t0 = audioCtx.currentTime;
-					const osc = audioCtx.createOscillator();
-					const gain = audioCtx.createGain();
-					osc.type = 'triangle';
-					osc.frequency.setValueAtTime(180, t0);
-					osc.frequency.exponentialRampToValueAtTime(900, t0 + duration);
-					gain.gain.setValueAtTime(0.0001, t0);
-					gain.gain.exponentialRampToValueAtTime(0.25, t0 + 0.015);
-					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
-					osc.connect(gain).connect(audioCtx.destination);
-					osc.start(t0);
-					osc.stop(t0 + duration + 0.02);
-				}
-
-				function playDownSweep(duration=0.18) {
-					if (!sfxEnabled) return;
-					ensureCtx();
-					const t0 = audioCtx.currentTime;
-					const osc = audioCtx.createOscillator();
-					const gain = audioCtx.createGain();
-					osc.type = 'sawtooth';
-					osc.frequency.setValueAtTime(900, t0);
-					osc.frequency.exponentialRampToValueAtTime(160, t0 + duration);
-					gain.gain.setValueAtTime(0.0001, t0);
-					gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.02);
-					gain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
-					osc.connect(gain).connect(audioCtx.destination);
-					osc.start(t0);
-					osc.stop(t0 + duration + 0.02);
-				}
-
 				// Unlock audio on first interaction
 				function unlock() {
 					ensureCtx();
 					// Warm up HTMLAudio as well
 					try { const v = cheer.volume; cheer.volume = 0; cheer.play().then(()=>cheer.pause()).catch(()=>{}); cheer.currentTime = 0; cheer.volume = v; } catch(_){}
 					try { const v = boo.volume; boo.volume = 0; boo.play().then(()=>boo.pause()).catch(()=>{}); boo.currentTime = 0; boo.volume = v; } catch(_){}
-					try { const v = vine.volume; vine.volume = 0; vine.play().then(()=>vine.pause()).catch(()=>{}); vine.currentTime = 0; vine.volume = v; } catch(_){}
-					try { const v = rim.volume; rim.volume = 0; rim.play().then(()=>rim.pause()).catch(()=>{}); rim.currentTime = 0; rim.volume = v; } catch(_){}
+					try { const v = vine.volume; vine.volume = 0; vine.play().then(()=>vine.pause()).catch(()=>{}); vine.currentTime = 0; vine.volume = v; } catch(_){ }
+					try { const v = wow.volume; wow.volume = 0; wow.play().then(()=>wow.pause()).catch(()=>{}); wow.currentTime = 0; wow.volume = v; } catch(_){ }
 					document.removeEventListener('pointerdown', unlock);
 					document.removeEventListener('keydown', unlock);
 				}
@@ -524,26 +516,22 @@ Console.WriteLine(active);
 				const boo = new Audio('assets/boo-6377.mp3');
 				boo.preload = 'auto'; boo.volume = 0.8;
 				const vine = new Audio('assets/vine-boom-392646.mp3');
-				vine.preload = 'auto'; vine.volume = 0.85;
-				const rim = new Audio('assets/rimshot-joke-funny-80325.mp3');
-				rim.preload = 'auto'; rim.volume = 0.8;
+ 				vine.preload = 'auto'; vine.volume = 0.85;
+				const wow = new Audio('assets/wow-male-voice-65342.mp3');
+				wow.preload = 'auto'; wow.volume = 0.9;
 
 				function playCheer() { if (!sfxEnabled) return; try { cheer.currentTime = 0; cheer.play().catch(()=>{}); } catch(_){} }
 				function playBoo() { if (!sfxEnabled) return; try { boo.currentTime = 0; boo.play().catch(()=>{}); } catch(_){} }
 				function playVine() { if (!sfxEnabled) return; try { vine.currentTime = 0; vine.play().catch(()=>{}); } catch(_){} }
-				function playRim() { if (!sfxEnabled) return; try { rim.currentTime = 0; rim.play().catch(()=>{}); } catch(_){} }
+				function playWow() { if (!sfxEnabled) return; try { wow.currentTime = 0; wow.play().catch(()=>{}); } catch(_){} }
 
 				// Hook into reveal.js events
 				if (window.Reveal) {
 					Reveal.on('slidechanged', (event) => {
-						// Randomize between a few short effects
-						const r = Math.random();
-						if (r < 0.34) playBeep();
-						else if (r < 0.67) playPop();
-						else playDownSweep();
+						// Removed generic beeps/pops
 						// Chance to play a meme effect too
 						const m = Math.random();
-						if (m < 0.2) playVine(); else if (m < 0.35) playRim();
+						if (m < 0.2) playVine();
 
 						// Conditional meme SFX based on current slide content
 						const slide = event.currentSlide || document.querySelector('.slides section.present');
@@ -552,9 +540,11 @@ Console.WriteLine(active);
 							const hasRed = slide.querySelector('img[src*="arrow-down-red.svg"], img[src*="Bellevue_Commute"]');
 							if (hasGreen && !hasRed) playCheer();
 							else if (hasRed) playBoo();
+							// Play wow on the gaming PC frame
+							if (slide.querySelector('img[src*="home_office_gaming_pc"]')) playWow();
 						}
 					});
-					Reveal.on('fragmentshown', () => { playPop(0.08); });
+					Reveal.on('fragmentshown', () => {});
 				}
 			})();
 		</script>
